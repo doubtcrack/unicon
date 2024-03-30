@@ -1,4 +1,3 @@
-import { Header } from "./components/header/header";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import SignUpPage from "./pages/Auth/SignUp";
@@ -7,10 +6,11 @@ import { useEffect } from "react";
 import Store from "./redux/store";
 import { loadUser } from "./redux/actions/user";
 import { getAllProducts } from "./redux/actions/product";
+import HomePage from "./pages/homepage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Header />,
+    element: <HomePage />,
   },
   {
     path: "signup",

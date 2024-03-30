@@ -13,7 +13,16 @@ import { Input } from "@/components/ui/input";
 import Nav from "./mainNav";
 import MobileNav from "./mobileNav";
 import { ModeToggle } from "../mode-toggle";
-export function Dashboard() {
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
+import { useDispatch } from "react-redux";
+import { logoutUser } from "@/redux/actions/user";
+
+export function Header() {
+  const dispatch: any = useDispatch();
+  const { isAuthenticated } = useSelector((state: any) => state.user);
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -30,23 +39,39 @@ export function Dashboard() {
               />
             </div>
           </form>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="secondary" size="icon" className="rounded-full">
-                <CircleUser className="h-5 w-5" />
-                <span className="sr-only">Toggle user menu</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+
           <ModeToggle />
+          {isAuthenticated ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  className="rounded-full"
+                >
+                  <CircleUser className="h-5 w-5" />
+                  <span className="sr-only">Toggle user menu</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Settings</DropdownMenuItem>
+                <DropdownMenuItem>Support</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => dispatch(logoutUser())}>
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Link to={"/signin"}>
+              <Button variant="outline">
+                Login
+                <span className="sr-only">Login</span>
+              </Button>
+            </Link>
+          )}
         </div>
       </header>
     </div>

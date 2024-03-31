@@ -1,24 +1,9 @@
 import { ProductCard } from "@/components/cards/productCard";
+import useProductFilter from "@/hooks/useProductFilter";
 import { PackageOpen } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
 
 const ProductPage = () => {
-  const [searchParams] = useSearchParams();
-  const [data, setData] = useState([]);
-  const { allProducts, isLoading } = useSelector(
-    (state: any) => state.products
-  );
-  const categoryData = searchParams.get("category");
-  useEffect(() => {
-    categoryData === null
-      ? setData(allProducts)
-      : setData(
-          allProducts &&
-            allProducts.filter((i: any) => i.category === categoryData)
-        );
-  }, [allProducts]);
+  const data = useProductFilter();
   return (
     <>
       <h2 className="text-3xl my-8 md:text-4xl font-bold flex justify-center">

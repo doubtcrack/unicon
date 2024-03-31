@@ -1,7 +1,9 @@
 import { ProductDescriptionCard } from "@/components/cards/productDescriptionCard";
 import useProductFilter from "@/hooks/useProductFilter";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { ProductDetailsTab } from "./../components/cards/productDetailsTab";
+import SuggestedProducts from "@/components/cards/suggestedProducts";
 
 const ProductDetailPage = () => {
   let data: any = useProductFilter();
@@ -10,7 +12,7 @@ const ProductDetailPage = () => {
   data = data?.find((i: any) => i._id === id);
 
   return (
-    <div className="flex justify-between">
+    <div className="flex flex-col ">
       <section className="grid md:mx-12 my-8 grid-cols-1 md:grid-cols-2 gap-8 max-w-screen-lg">
         <div className="w-full flex flex-col justify-center items-center border-card rounded-md p-2">
           <img
@@ -39,6 +41,8 @@ const ProductDetailPage = () => {
         </div>
         <ProductDescriptionCard data={data} />
       </section>
+      <ProductDetailsTab />
+      <SuggestedProducts data={data} />
     </div>
   );
 };

@@ -19,6 +19,7 @@ import { Separator } from "../ui/separator";
 import useProductHandlers, {
   useAvgRatingCalc,
 } from "@/hooks/useProductHandler";
+import useConversationCreator from "@/hooks/useConversationCreator";
 
 export function ProductDescriptionCard({ data }: any) {
   const {
@@ -27,8 +28,8 @@ export function ProductDescriptionCard({ data }: any) {
     addToWishlistHandler,
     addToCartHandler,
   } = useProductHandlers(data);
-
-  const averageRating = useAvgRatingCalc();
+  const { handleMessageSubmit } = useConversationCreator();
+  const [averageRating] = useAvgRatingCalc();
   return (
     <Card>
       <CardHeader>
@@ -73,6 +74,16 @@ export function ProductDescriptionCard({ data }: any) {
           ({averageRating}/5) Ratings
         </Button>
       </CardFooter>
+      <CardFooter className="flex flex-col items-start md:flex-row justify-between">
+        <div>
+          <span className="text-muted-foreground">Discounted Price : </span>
+          {data?.discountPrice} Rs.
+        </div>
+        <div>
+          <span className="text-muted-foreground">Original Price : </span>
+          {data?.originalPrice ? data?.originalPrice + " Rs." : null}
+        </div>
+      </CardFooter>
       <CardFooter className="flex justify-between">
         <Button
           variant="outline"
@@ -92,7 +103,10 @@ export function ProductDescriptionCard({ data }: any) {
         </Button>
       </CardFooter>
       <CardFooter>
-        <Button className="w-full justify-between">
+        <Button
+          className="w-full justify-between"
+          onClick={() => handleMessageSubmit()}
+        >
           Chat with Owner &nbsp;
           <MessageSquare className="h-4 w-4" />
         </Button>

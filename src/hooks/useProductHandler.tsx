@@ -57,13 +57,16 @@ const useProductHandlers = (data: any) => {
 export const useAvgRatingCalc = () => {
   const { products } = useSelector((state: any) => state.products);
   const [averageRating, setAverageRating] = useState(0);
-
+  const [totalReviewsLength, setTotalReviewsLength] = useState(0);
+  const [totalRatings, setTotalRatings] = useState(0);
   useEffect(() => {
     if (products && products.length > 0) {
       const totalReviewsLength = products.reduce(
         (acc: any, product: any) => acc + product.reviews.length,
         0
       );
+      setTotalReviewsLength(totalReviewsLength);
+
       const totalRatings = products.reduce(
         (acc: any, product: any) =>
           acc +
@@ -73,6 +76,8 @@ export const useAvgRatingCalc = () => {
           ),
         0
       );
+      setTotalRatings(totalRatings);
+
       const avg: any = totalRatings / totalReviewsLength || 0;
       setAverageRating(avg.toFixed(2));
     } else {
@@ -80,7 +85,7 @@ export const useAvgRatingCalc = () => {
     }
   }, [products]);
 
-  return averageRating;
+  return [averageRating, totalReviewsLength, totalRatings];
 };
 
 export default useProductHandlers;

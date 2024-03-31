@@ -1,7 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import useProductHandlers from "@/hooks/useProductHandler";
-import { Star, ShoppingCart, CircleUser } from "lucide-react";
+import {
+  Star,
+  ShoppingCart,
+  CircleUser,
+  BookmarkCheck,
+  Bookmark,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 export function ProductCard({ data }: any) {
@@ -64,9 +70,9 @@ export function ProductCard({ data }: any) {
           }
         >
           {click ? (
-            <Star className="h-4 w-4 fill-yellow-500" />
+            <BookmarkCheck className="h-4 w-4 fill-yellow-400 stroke-yellow-400" />
           ) : (
-            <Star className="h-4 w-4" />
+            <Bookmark className="h-4 w-4" />
           )}{" "}
           &nbsp;Wishlist
         </Button>

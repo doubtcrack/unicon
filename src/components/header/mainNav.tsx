@@ -24,7 +24,7 @@ const Nav = () => {
         Orders
       </Link>
       <Link
-        to="/"
+        to="/product"
         className="text-muted-foreground transition-colors hover:text-foreground"
       >
         Products

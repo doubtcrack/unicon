@@ -1,11 +1,11 @@
 import HeroSection from "@/components/landingPage/hero";
-import { Header } from "./../components/header/header";
 import AboutSection from "@/components/landingPage/about";
 import { HowItWorks } from "@/components/landingPage/howItWorks";
 import { ProductCard } from "@/components/cards/productCard";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+import { PackageOpen } from "lucide-react";
 
 const HomePage = () => {
   const [searchParams] = useSearchParams();
@@ -25,8 +25,7 @@ const HomePage = () => {
 
   return (
     <>
-      <Header />
-      <div className="container">
+      <>
         <HeroSection />
 
         <AboutSection />
@@ -39,13 +38,16 @@ const HomePage = () => {
         </h2>
         <section className="grid md:mx-12 my-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {data && data.map((i, index) => <ProductCard data={i} key={index} />)}
-          {data && data.length === 0 ? (
-            <h1 className="text-center w-full pb-[100px] text-[20px]">
+        </section>
+        {data && data.length === 0 ? (
+          <div className="flex justify-center items-center flex-col h-[75vh]">
+            <PackageOpen className="h-10 w-10 " />
+            <h1 className="text-center pb-[100px] text-[20px]">
               No products Found!
             </h1>
-          ) : null}
-        </section>
-      </div>
+          </div>
+        ) : null}
+      </>
     </>
   );
 };

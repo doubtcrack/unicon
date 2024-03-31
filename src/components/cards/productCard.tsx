@@ -63,33 +63,33 @@ export function ProductCard({ data }: any) {
           <img
             src={`${data.images && data.images[0]}`}
             alt="product image"
-            height={"200px"}
+            height={"100px"}
             width={"100%"}
-            className="rounded-md"
+            className="rounded-md h-[200px]"
           />
         </Link>
       </div>
       <CardContent>
         <CardTitle className="flex items-center">
-          {/* <Link to={`/shop/preview/${data?.shop._id}`}> */}
-          <Button
-            variant="secondary"
-            size="icon"
-            className="rounded-full h-8 w-8"
-          >
-            {data.shop.avatar ? (
-              <img
-                src={data.shop.avatar}
-                alt="shop-avatar"
-                className="h-5 w-5"
-              />
-            ) : (
-              <CircleUser className="h-5 w-5" />
-            )}
+          <Link to={`/shop/preview/${data?.shop._id}`}>
+            <Button
+              variant="secondary"
+              size="icon"
+              className="rounded-full h-8 w-8"
+            >
+              {data.shop.avatar ? (
+                <img
+                  src={data.shop.avatar}
+                  alt="shop-avatar"
+                  className="h-5 w-5 rounded-full"
+                />
+              ) : (
+                <CircleUser className="h-5 w-5" />
+              )}
 
-            <span className="sr-only">Shop Owner</span>
-          </Button>{" "}
-          {/* </Link> */}
+              <span className="sr-only">Shop Owner</span>
+            </Button>{" "}
+          </Link>
           &nbsp; {data.shop.name}
         </CardTitle>
       </CardContent>

@@ -37,22 +37,20 @@ export function ProductDetailsTab() {
             <CardContent className="space-y-2">
               {data &&
                 data?.reviews?.map((item: any, index: any) => (
-                  <>
-                    <div className="w-full flex my-4" key={index}>
-                      <img
-                        src={`/${item?.user?.avatar}`}
-                        alt=""
-                        className="w-10 h-10 rounded-full"
-                      />
-                      <div className="pl-4 ">
-                        <div className="w-full flex items-center">
-                          <h1 className="font-[500] mr-3">{item.user.name}</h1>
-                          <Ratings rating={data?.ratings} />
-                        </div>
-                        <p className="text-muted-foreground">{item.comment}</p>
+                  <div className="w-full flex my-4" key={index}>
+                    <img
+                      src={`/${item?.user?.avatar}`}
+                      alt=""
+                      className="w-10 h-10 rounded-full"
+                    />
+                    <div className="pl-4 ">
+                      <div className="w-full flex items-center">
+                        <h1 className="font-[500] mr-3">{item.user.name}</h1>
+                        <Ratings rating={data?.ratings} />
                       </div>
+                      <p className="text-muted-foreground">{item.comment}</p>
                     </div>
-                  </>
+                  </div>
                 ))}
               <div className="w-full flex justify-center items-center">
                 {data && data.reviews.length === 0 && (

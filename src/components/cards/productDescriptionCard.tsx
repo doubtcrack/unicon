@@ -1,42 +1,34 @@
-import * as React from "react";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CircleUser, Star } from "lucide-react";
+import {
+  Bookmark,
+  BookmarkCheck,
+  CircleUser,
+  MessageSquare,
+  ShoppingCart,
+  Star,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { Separator } from "../ui/separator";
-import { useSelector } from "react-redux";
+import useProductHandlers, {
+  useAvgRatingCalc,
+} from "@/hooks/useProductHandler";
 
 export function ProductDescriptionCard({ data }: any) {
-  const { products } = useSelector((state: any) => state.products);
-  const totalReviewsLength =
-    products &&
-    products.reduce(
-      (acc: any, product: any) => acc + product.reviews.length,
-      0
-    );
+  const {
+    click,
+    removeFromWishlistHandler,
+    addToWishlistHandler,
+    addToCartHandler,
+  } = useProductHandlers(data);
 
-  const totalRatings =
-    products &&
-    products.reduce(
-      (acc: any, product: any) =>
-        acc +
-        product.reviews.reduce(
-          (sum: any, review: any) => sum + review.rating,
-          0
-        ),
-      0
-    );
-  const avg = totalRatings / totalReviewsLength || 0;
-
-  const averageRating = avg.toFixed(2);
+  const averageRating = useAvgRatingCalc();
   return (
     <Card>
       <CardHeader>
@@ -52,7 +44,7 @@ export function ProductDescriptionCard({ data }: any) {
 
       <CardFooter className="flex justify-between">
         <CardTitle className="flex justify-center items-center">
-          <Link to={`/shop/preview/${data?.shop._id}`}>
+          <Link to={`/shop/preview/${data?.shop?._id}`}>
             <Button
               variant="secondary"
               size="icon"
@@ -77,21 +69,32 @@ export function ProductDescriptionCard({ data }: any) {
           </div>
         </CardTitle>
         <Button variant="outline">
-          <Star className="h-5 w-5" /> &nbsp; ({averageRating}/5) Ratings
+          <Star className="h-5 w-5 fill-yellow-400 stroke-yellow-400" /> &nbsp;
+          ({averageRating}/5) Ratings
         </Button>
       </CardFooter>
       <CardFooter className="flex justify-between">
-        <Button variant="outline">
-          <Star className="h-5 w-5" /> &nbsp;Wishlist
+        <Button
+          variant="outline"
+          onClick={() =>
+            click ? removeFromWishlistHandler() : addToWishlistHandler()
+          }
+        >
+          {click ? (
+            <BookmarkCheck className="h-4 w-4 fill-yellow-300 stroke-yellow-300" />
+          ) : (
+            <Bookmark className="h-4 w-4" />
+          )}{" "}
+          &nbsp;Wishlist
         </Button>
-        <Button>
-          <Star className="h-5 w-5" /> &nbsp;Cart
+        <Button onClick={() => addToCartHandler()}>
+          <ShoppingCart className="h-4 w-4 " /> &nbsp;Cart
         </Button>
       </CardFooter>
       <CardFooter>
         <Button className="w-full justify-between">
           Chat with Owner &nbsp;
-          <Star className="h-5 w-5" />
+          <MessageSquare className="h-4 w-4" />
         </Button>
       </CardFooter>
     </Card>

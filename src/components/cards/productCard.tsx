@@ -1,61 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
-import { addTocart } from "@/redux/actions/cart";
-import { addToWishlist, removeFromWishlist } from "@/redux/actions/wishlist";
+import useProductHandlers from "@/hooks/useProductHandler";
 import { Star, ShoppingCart, CircleUser } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useToast } from "@/components/ui/use-toast";
 
 export function ProductCard({ data }: any) {
-  const { toast } = useToast();
-  const { wishlist } = useSelector((state: any) => state.wishlist);
-  const { cart } = useSelector((state: any) => state.cart);
-  const [click, setClick] = useState(false);
-  const dispatch: any = useDispatch();
+  const {
+    click,
+    removeFromWishlistHandler,
+    addToWishlistHandler,
+    addToCartHandler,
+  } = useProductHandlers(data);
 
-  useEffect(() => {
-    if (wishlist && wishlist.find((i: any) => i._id === data._id)) {
-      setClick(true);
-    } else {
-      setClick(false);
-    }
-  }, [wishlist]);
-
-  // const removeFromWishlistHandler = (data) => {
-  //   setClick(!click);
-  //   dispatch(removeFromWishlist(data));
-  // };
-
-  const addToWishlistHandler = (data: any) => {
-    setClick(!click);
-    dispatch(addToWishlist(data));
-  };
-
-  const addToCartHandler = (id: any) => {
-    const isItemExists = cart && cart.find((i: any) => i._id === id);
-    if (isItemExists) {
-      toast({
-        variant: "destructive",
-        title: "Item already in cart!",
-      });
-    } else {
-      if (data.stock < 1) {
-        toast({
-          variant: "destructive",
-          title: "Product stock limited!",
-        });
-      } else {
-        const cartData: any = { ...data, qty: 1 };
-        dispatch(addTocart(cartData));
-        toast({
-          variant: "destructive",
-          title: "Item added to cart successfully!",
-        });
-      }
-    }
-  };
   return (
     <Card className="">
       <div className="p-4">
@@ -101,10 +57,20 @@ export function ProductCard({ data }: any) {
         </CardTitle>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button variant="outline" onClick={() => addToWishlistHandler(data)}>
-          <Star className="h-4 w-4" /> &nbsp;Wishlist
+        <Button
+          variant="outline"
+          onClick={() =>
+            click ? removeFromWishlistHandler() : addToWishlistHandler()
+          }
+        >
+          {click ? (
+            <Star className="h-4 w-4 fill-yellow-500" />
+          ) : (
+            <Star className="h-4 w-4" />
+          )}{" "}
+          &nbsp;Wishlist
         </Button>
-        <Button onClick={() => addToCartHandler(data._id)}>
+        <Button onClick={() => addToCartHandler()}>
           <ShoppingCart className="h-4 w-4" /> &nbsp; Cart
         </Button>
       </CardFooter>

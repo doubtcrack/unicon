@@ -3,6 +3,7 @@ import { Minus, Plus, Trash2 } from "lucide-react";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { Link } from "react-router-dom";
+import { SheetClose } from "../ui/sheet";
 
 const CartProductCard = ({ data, index }: any) => {
   const {
@@ -31,13 +32,15 @@ const CartProductCard = ({ data, index }: any) => {
       </div>
       <div className="w-full flex items-center justify-between">
         <div className="flex">
-          <Link to={`/product/${data._id}`}>
-            <img
-              src={`${data?.images[0]}`}
-              alt=""
-              className="w-10 h-10 rounded-sm cursor-pointer"
-            />
-          </Link>
+          <SheetClose asChild>
+            <Link to={`/product/${data._id}`}>
+              <img
+                src={`${data?.images[0]}`}
+                alt=""
+                className="w-10 h-10 rounded-sm cursor-pointer"
+              />
+            </Link>
+          </SheetClose>
           <div className="px-3 text-muted-foreground text-sm">
             <h5>
               {data?.discountPrice} * {value} Rs.

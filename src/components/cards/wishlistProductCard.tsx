@@ -3,6 +3,7 @@ import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import useProductHandlers from "@/hooks/useProductHandler";
 import { Link } from "react-router-dom";
+import { SheetClose } from "../ui/sheet";
 
 const WishlistProductCard = ({ data, index }: any) => {
   const { removeFromWishlistHandler, addToCartHandler }: any =
@@ -22,13 +23,15 @@ const WishlistProductCard = ({ data, index }: any) => {
         />
       </div>
       <div className="w-full my-2 flex items-center justify-between">
-        <Link to={`/product/${data._id}`}>
-          <img
-            src={`${data?.images[0]}`}
-            alt=""
-            className="w-10 h-10 rounded-sm cursor-pointer"
-          />
-        </Link>
+        <SheetClose asChild>
+          <Link to={`/product/${data._id}`}>
+            <img
+              src={`${data?.images[0]}`}
+              alt=""
+              className="w-10 h-10 rounded-sm cursor-pointer"
+            />
+          </Link>
+        </SheetClose>
         <Button onClick={() => addToCartHandler()} size={"sm"}>
           <ShoppingCart className="h-4 w-4" /> &nbsp; Cart
         </Button>

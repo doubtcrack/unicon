@@ -1,4 +1,4 @@
-import { addTocart } from "@/redux/actions/cart";
+import { addTocart, removeFromCart } from "@/redux/actions/cart";
 import { addToWishlist, removeFromWishlist } from "@/redux/actions/wishlist";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,8 @@ const useProductHandlers = (data: any) => {
   const { cart } = useSelector((state: any) => state.cart);
   const [click, setClick] = useState(false);
   const dispatch: any = useDispatch();
+  const [value, setValue] = useState(data?.qty);
+  const totalPrice = data?.discountPrice * value;
 
   useEffect(() => {
     if (wishlist && wishlist.find((item: any) => item?._id === data?._id)) {
@@ -36,7 +38,7 @@ const useProductHandlers = (data: any) => {
     if (isItemExists) {
       toast.error("Item already in cart!");
     } else {
-      if (data.stock < 1) {
+      if (data?.stock < 1) {
         toast.error("Product stock limited!");
       } else {
         const cartData = { ...data, qty: 1 };
@@ -46,11 +48,37 @@ const useProductHandlers = (data: any) => {
     }
   };
 
+  const removeFromCartHandler = () => {
+    dispatch(removeFromCart(data));
+    toast.success("Item removed from cart!");
+  };
+
+  const incrementHandler = () => {
+    if (data?.stock < value) {
+      toast.error("Product stock limited!");
+    } else {
+      setValue(value + 1);
+      const updateCartData = { ...data, qty: value + 1 };
+      dispatch(addTocart(updateCartData));
+    }
+  };
+
+  const decrementHandler = () => {
+    setValue(value === 1 ? 1 : value - 1);
+    const updateCartData = { ...data, qty: value === 1 ? 1 : value - 1 };
+    dispatch(addTocart(updateCartData));
+  };
+
   return {
     click,
     removeFromWishlistHandler,
     addToWishlistHandler,
     addToCartHandler,
+    removeFromCartHandler,
+    incrementHandler,
+    decrementHandler,
+    totalPrice,
+    value,
   };
 };
 

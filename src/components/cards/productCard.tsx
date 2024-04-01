@@ -25,9 +25,8 @@ export function ProductCard({ data }: any) {
           <img
             src={`${data.images && data.images[0]}`}
             alt="product image"
-            height={"100px"}
             width={"100%"}
-            className="rounded-md h-[200px]"
+            className="rounded-md min-h-[200px] max-h-[300px]"
           />
         </Link>
       </div>
@@ -62,7 +61,7 @@ export function ProductCard({ data }: any) {
           </Link>
         </CardTitle>
       </CardContent>
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex sticky top-full justify-between b-0">
         <Button
           variant="outline"
           onClick={() =>

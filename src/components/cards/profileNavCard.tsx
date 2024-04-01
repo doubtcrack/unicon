@@ -34,8 +34,10 @@ const ProfileNavCard = () => {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
+              <DropdownMenuItem>Profile</DropdownMenuItem>
               <WishlistSheet />
               <CartSheet />
+              <DropdownMenuItem>Orders</DropdownMenuItem>
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => dispatch(logoutUser())}>

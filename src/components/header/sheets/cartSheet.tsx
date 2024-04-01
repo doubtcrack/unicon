@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetFooter,
   SheetHeader,
@@ -44,11 +45,13 @@ const CartSheet = () => {
             </ScrollArea>
           </SheetHeader>
           <SheetFooter className=" sticky top-full">
-            <Link to="/checkout" className="w-full">
-              <Button className="w-full justify-between">
-                Checkout Now ({totalPrice} Rs.) <MoveRight />
-              </Button>
-            </Link>
+            <SheetClose asChild>
+              <Link to="/checkout" className="w-full">
+                <Button className="w-full justify-between">
+                  Checkout Now ({totalPrice} Rs.) <MoveRight />
+                </Button>
+              </Link>
+            </SheetClose>
           </SheetFooter>
         </SheetContent>
       </div>

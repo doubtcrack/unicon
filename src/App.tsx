@@ -11,10 +11,19 @@ import ProductPage from "./pages/ProductPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import Layout from "./pages/Layout";
 import { ToastContainer } from "react-toastify";
-import ProfilePage from "./pages/ProfilePage";
+import ProfilePage from "./pages/Profile/ProfilePage";
 import CheckoutPage from "./pages/CheckoutPage";
+import ProfileLayout from "./pages/Profile/ProfileLayout";
 
 const router = createBrowserRouter([
+  {
+    path: "signup",
+    element: <SignUpPage />,
+  },
+  {
+    path: "signin",
+    element: <SignInPage />,
+  },
   {
     path: "/",
     element: (
@@ -48,12 +57,20 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "signup",
-    element: <SignUpPage />,
-  },
-  {
-    path: "signin",
-    element: <SignInPage />,
+    path: "/profile",
+    element: (
+      <>
+        <ProfileLayout>
+          <Outlet />
+        </ProfileLayout>
+      </>
+    ),
+    children: [
+      {
+        path: "",
+        element: <ProfilePage />,
+      },
+    ],
   },
 ]);
 function App() {

@@ -34,7 +34,9 @@ const ProfileNavCard = () => {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link to="/profile">Profile</Link>{" "}
+              </DropdownMenuItem>
               <WishlistSheet />
               <CartSheet />
               <DropdownMenuItem>Orders</DropdownMenuItem>

@@ -6,6 +6,22 @@ const initialState = {
 
 export const orderReducer = createReducer(initialState, (builder) => {
   builder
+
+    // create order for user
+    .addCase("createOrderForUserRequest", (state: any) => {
+      state.isLoading = true;
+      state.error = null;
+      state.order = null;
+    })
+    .addCase("createOrderForUserSuccess", (state: any, action: any) => {
+      state.isLoading = false;
+      state.order = action.payload;
+    })
+    .addCase("createOrderForUserFailed", (state: any, action: any) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    })
+
     // get all orders of user
     .addCase("getAllOrdersUserRequest", (state) => {
       state.isLoading = true;

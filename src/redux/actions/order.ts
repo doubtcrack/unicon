@@ -1,5 +1,39 @@
 import axios from "axios";
 import { server } from "../../server";
+import { toast } from "react-toastify";
+
+// create order for user
+export const createOrderForUser = (order: any) => async (dispatch: any) => {
+  try {
+    dispatch({
+      type: "createOrderForUserRequest",
+    });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    order.paymentInfo = {
+      type: "Cash On Delivery",
+    };
+
+    const res = await axios.post(`${server}/order/create-order`, order, config);
+
+    dispatch({
+      type: "createOrderForUserSuccess",
+      payload: res.data,
+    });
+    toast.success("Order successful!");
+  } catch (error: any) {
+    dispatch({
+      type: "createOrderForUserFailed",
+      payload: error.response.data?.message,
+    });
+    toast.error("Failed to create order. Please try again.");
+  }
+};
 
 // get all orders of user
 export const getAllOrdersOfUser = (userId: any) => async (dispatch: any) => {

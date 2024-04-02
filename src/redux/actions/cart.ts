@@ -20,3 +20,8 @@ export const removeFromCart =
     localStorage.setItem("cartItems", JSON.stringify(getState().cart.cart));
     return data;
   };
+
+// clear cart
+export const clearCart = () => ({
+  type: "clearCart",
+});

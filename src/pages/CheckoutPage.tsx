@@ -11,6 +11,7 @@ import { useMultistepForm } from "@/hooks/useMultistepForm";
 import { createOrderForUser } from "@/redux/actions/order";
 import { clearCart } from "@/redux/actions/cart";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ const CheckoutPage = () => {
 
   function onSubmit(e: FormEvent) {
     e.preventDefault();
-    if (isLastStep) {
+    if (isLastStep && cart.length) {
       const orderData = {
         cart,
         user,
@@ -57,6 +58,8 @@ const CheckoutPage = () => {
       dispatch(createOrderForUser(orderData));
       dispatch(clearCart());
       navigate(`/product`);
+    } else if (isLastStep && !cart.length) {
+      toast.error("Empty Cart!");
     } else {
       next();
     }

@@ -45,13 +45,19 @@ const CartSheet = () => {
             </ScrollArea>
           </SheetHeader>
           <SheetFooter className=" sticky top-full">
-            <SheetClose asChild>
-              <Link to="/checkout" className="w-full">
-                <Button className="w-full justify-between">
-                  Checkout Now ({totalPrice} Rs.) <MoveRight />
-                </Button>
-              </Link>
-            </SheetClose>
+            {totalPrice ? (
+              <SheetClose asChild>
+                <Link to="/checkout" className="w-full">
+                  <Button className="w-full justify-between">
+                    Checkout Now ({totalPrice} Rs.) <MoveRight />
+                  </Button>
+                </Link>
+              </SheetClose>
+            ) : (
+              <Button className="w-full justify-between bg-muted-foreground hover:bg-muted-foreground cursor-default">
+                Checkout Now <MoveRight />
+              </Button>
+            )}
           </SheetFooter>
         </SheetContent>
       </div>

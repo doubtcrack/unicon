@@ -69,6 +69,18 @@ export const userReducer = createReducer(initialState, (builder) => {
       state.loading = false;
       state.error = action.payload;
     })
+    .addCase("updateUserAvatarRequest", (state: any) => {
+      state.isLoading = true;
+      state.error = null;
+    })
+    .addCase("updateUserAvatarSuccess", (state: any) => {
+      state.isLoading = false;
+      state.error = null;
+    })
+    .addCase("updateUserAvatarFailed", (state: any, action: any) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    })
     .addCase("updateUserAddressRequest", (state) => {
       state.addressloading = true;
     })

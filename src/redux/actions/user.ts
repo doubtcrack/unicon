@@ -1,5 +1,7 @@
 import axios from "axios";
 import { server } from "../../server";
+import { toast } from "react-toastify";
+
 //login user
 export const loginUser =
   (email: string, password: string, navigate: any) => async (dispatch: any) => {
@@ -124,6 +126,27 @@ export const updateUserInformation =
       });
     }
   };
+
+// update user avatar
+export const updateAvatar = (formData: any) => async (dispatch: any) => {
+  try {
+    dispatch({ type: "updateUserAvatarRequest" });
+
+    const res = await axios.put(`${server}/user/update-avatar`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      withCredentials: true,
+    });
+
+    dispatch({ type: "updateUserAvatarSuccess" });
+    dispatch(loadUser());
+    toast.success("Avatar updated successfully!");
+  } catch (error: any) {
+    dispatch({ type: "updateUserAvatarFailed", payload: error.message });
+    toast.error(error.message);
+  }
+};
 
 // update user address
 export const updatUserAddress =

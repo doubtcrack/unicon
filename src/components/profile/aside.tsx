@@ -13,6 +13,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "@/redux/actions/user";
 
 const NavButton = ({ icon, label, tooltipLabel }: any) => (
   <Tooltip>
@@ -34,21 +37,60 @@ const NavButton = ({ icon, label, tooltipLabel }: any) => (
 );
 
 const Aside = () => {
+  const dispatch: any = useDispatch();
   return (
     <aside className="inset-y fixed left-0 z-20 flex h-[90vh] flex-col border-r">
       <TooltipProvider>
         <nav className="grid gap-1 p-2 lg:my-4">
-          <NavButton icon={<UserRound className="size-5" />} label="Profile" />
-          <NavButton icon={<ShoppingBag className="size-5" />} label="Orders" />
-          <NavButton
-            icon={<MessageSquare className="size-5" />}
-            label="Inbox"
-          />
-          <NavButton icon={<Radar className="size-5" />} label="Track Order" />
+          <Link to={"/dashboard"}>
+            <NavButton
+              icon={<UserRound className="size-5" />}
+              label="Profile"
+            />
+          </Link>
+          <Link to="/dashboard/orders">
+            {" "}
+            <NavButton
+              icon={<ShoppingBag className="size-5" />}
+              label="Orders"
+            />
+          </Link>
+          <Link to="/dashboard/chat">
+            <NavButton
+              icon={<MessageSquare className="size-5" />}
+              label="Inbox"
+            />
+          </Link>
+          <Link to="/dashboard/ordertrack">
+            <NavButton
+              icon={<Radar className="size-5" />}
+              label="Track Order"
+            />
+          </Link>
         </nav>
         <nav className="mt-auto grid gap-1 p-2">
-          <NavButton icon={<Settings2 className="size-5" />} label="Settings" />
-          <NavButton icon={<LogOut className="size-5" />} label="Logout" />
+          <Link to="/dashboard/settings">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-md hover:bg-muted lg:w-40 lg:justify-start lg:p-4 text-muted-foreground"
+              aria-label={"Settings"}
+            >
+              <Settings2 className="size-5" />
+              <div className="hidden lg:block pl-2">Settings</div>
+            </Button>
+          </Link>
+
+          <Button
+            variant="ghost"
+            size="icon"
+            className="rounded-md hover:bg-muted lg:w-40 lg:justify-start lg:p-4 text-muted-foreground"
+            aria-label={"Logout"}
+            onClick={() => dispatch(logoutUser())}
+          >
+            <LogOut className="size-5" />
+            <div className="hidden lg:block pl-2">Logout</div>
+          </Button>
         </nav>
       </TooltipProvider>
     </aside>

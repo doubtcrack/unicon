@@ -51,7 +51,6 @@ const ProfilePage = () => {
 
   return (
     <div className="flex justify-center items-center w-full min-h-[90vh] mt-8">
-      {/* <ScrollArea className="h-[90vh] lg:h-[70vh]"> */}
       <form
         className="grid w-full lg:w-[100vh] items-start gap-6"
         onSubmit={handleSubmit}
@@ -128,7 +127,6 @@ const ProfilePage = () => {
           Update Profile
         </Button>
       </form>
-      {/* </ScrollArea> */}
     </div>
   );
 };

@@ -14,6 +14,10 @@ import { ToastContainer } from "react-toastify";
 import ProfilePage from "./pages/Profile/ProfilePage";
 import CheckoutPage from "./pages/CheckoutPage";
 import ProfileLayout from "./pages/Profile/ProfileLayout";
+import OrdersPage from "./pages/Profile/OrdersPage";
+import TrackOrdersPage from "./pages/Profile/TrackOrdersPage";
+import SettingsPage from "./pages/Profile/SettingsPage";
+import ChatBoxPage from "./pages/Profile/ChatBoxPage";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +69,22 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <ProfilePage />,
+      },
+      {
+        path: "orders",
+        element: <OrdersPage />,
+      },
+      {
+        path: "ordertrack",
+        element: <TrackOrdersPage />,
+      },
+      {
+        path: "chat",
+        element: <ChatBoxPage />,
+      },
+      {
+        path: "settings",
+        element: <SettingsPage />,
       },
     ],
   },

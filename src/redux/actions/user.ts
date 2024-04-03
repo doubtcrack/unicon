@@ -148,6 +148,31 @@ export const updateAvatar = (formData: any) => async (dispatch: any) => {
   }
 };
 
+// update user password
+export const updateUserPassword =
+  (oldPassword: any, newPassword: any, confirmPassword: any) =>
+  async (dispatch: any) => {
+    try {
+      dispatch({ type: "updateUserPasswordRequest" });
+      const res = await axios.put(
+        `${server}/user/update-user-password`,
+        { oldPassword, newPassword, confirmPassword },
+        { withCredentials: true }
+      );
+      dispatch({
+        type: "updateUserPasswordSuccess",
+        payload: res.data.success,
+      });
+      toast.success("Password changed Successfully!");
+    } catch (error: any) {
+      dispatch({
+        type: "updateUserPasswordFailed",
+        payload: error.response.data.message,
+      });
+      toast.error(error.response.data.message);
+    }
+  };
+
 // update user address
 export const updatUserAddress =
   (

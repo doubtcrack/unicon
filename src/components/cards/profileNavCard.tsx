@@ -35,12 +35,16 @@ const ProfileNavCard = () => {
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <Link to="/profile">Profile</Link>{" "}
+                <Link to="/dashboard">Profile</Link>
               </DropdownMenuItem>
               <WishlistSheet />
               <CartSheet />
-              <DropdownMenuItem>Orders</DropdownMenuItem>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link to="/dashboard/orders">Orders</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link to="/dashboard/settings">Settings</Link>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => dispatch(logoutUser())}>
                 Logout

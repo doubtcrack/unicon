@@ -7,7 +7,7 @@ const ProfileLayout = ({ children }: any) => {
       <Header />
       <div className="grid h-[90vh] w-full pl-[53px] lg:pl-[200px]">
         <Aside />
-        <main className="grid flex-1 gap-4 overflow-auto p-4">{children}</main>
+        <main className="grid flex-1 gap-4 p-4">{children}</main>
       </div>
     </div>
   );

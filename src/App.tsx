@@ -18,6 +18,8 @@ import OrdersPage from "./pages/Profile/OrdersPage";
 import TrackOrdersPage from "./pages/Profile/TrackOrdersPage";
 import SettingsPage from "./pages/Profile/SettingsPage";
 import ChatBoxPage from "./pages/Profile/ChatBoxPage";
+import OrderDetailsPage from "./pages/OrderDetailsPage";
+import EachOrderTrackPage from "./pages/Profile/EachOrderTrackPage";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +56,10 @@ const router = createBrowserRouter([
         path: "checkout",
         element: <CheckoutPage />,
       },
+      {
+        path: "user/order/:id",
+        element: <OrderDetailsPage />,
+      },
     ],
   },
   {
@@ -77,6 +83,10 @@ const router = createBrowserRouter([
       {
         path: "ordertrack",
         element: <TrackOrdersPage />,
+      },
+      {
+        path: "order/:id",
+        element: <EachOrderTrackPage />,
       },
       {
         path: "chat",

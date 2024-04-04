@@ -35,6 +35,36 @@ export const createOrderForUser = (order: any) => async (dispatch: any) => {
   }
 };
 
+// create review for delievered order
+export const createReview = (reviewData: any) => async (dispatch: any) => {
+  try {
+    dispatch({
+      type: "createReviewRequest",
+    });
+
+    const res = await axios.put(
+      `${server}/product/create-new-review`,
+      reviewData,
+      { withCredentials: true }
+    );
+    dispatch({
+      type: "createReviewSuccess",
+      payload: res.data,
+    });
+    toast.success(res.data.message);
+    dispatch(getAllOrdersOfUser(reviewData.user._id));
+  } catch (error: any) {
+    dispatch({
+      type: "createReviewFailed",
+      payload:
+        error.response.data?.message ||
+        "Failed to create review. Please try again.",
+    });
+
+    toast.error("Failed to create review. Please try again.");
+  }
+};
+
 // get all orders of user
 export const getAllOrdersOfUser = (userId: any) => async (dispatch: any) => {
   try {

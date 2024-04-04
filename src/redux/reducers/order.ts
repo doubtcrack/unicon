@@ -22,6 +22,19 @@ export const orderReducer = createReducer(initialState, (builder) => {
       state.error = action.payload;
     })
 
+    // create review for delievered order
+    .addCase("createReviewRequest", (state: any) => {
+      state.isLoading = true;
+      state.error = null;
+    })
+    .addCase("createReviewSuccess", (state: any) => {
+      state.isLoading = false;
+    })
+    .addCase("createReviewFailed", (state: any, action: any) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    })
+
     // get all orders of user
     .addCase("getAllOrdersUserRequest", (state) => {
       state.isLoading = true;

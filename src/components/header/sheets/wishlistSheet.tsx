@@ -35,7 +35,7 @@ const WishlistSheet = () => {
             <ScrollArea className="h-screen w-full">
               {wishlist &&
                 wishlist.map((data: any, index: any) => (
-                  <WishlistProductCard data={data} index={index} />
+                  <WishlistProductCard data={data} index={index} key={index} />
                 ))}
             </ScrollArea>
           </SheetHeader>

@@ -12,9 +12,30 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useDispatch } from "react-redux";
-import { loginUser } from "@/redux/actions/user";
+import { loginAccount } from "@/redux/actions/user";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
 export function SignInForm() {
+  return (
+    <Tabs
+      defaultValue="user"
+      className=" w-screen h-screen flex flex-col justify-center items-center"
+    >
+      <TabsList className="grid w-full max-w-lg grid-cols-2">
+        <TabsTrigger value="user">User</TabsTrigger>
+        <TabsTrigger value="seller">Seller</TabsTrigger>
+      </TabsList>
+      <TabsContent value="user" className="w-full max-w-lg">
+        <SignInCard path={"user/login-user"} afterpath={"/"} />
+      </TabsContent>
+      <TabsContent value="seller" className="w-full max-w-lg">
+        <SignInCard path={"shop/login-shop"} afterpath={"/admin/dashboard"} />
+      </TabsContent>
+    </Tabs>
+  );
+}
+
+const SignInCard = ({ path, afterpath }: any) => {
   const navigate = useNavigate();
   const dispatch: any = useDispatch();
   const [email, setEmail] = useState("");
@@ -22,7 +43,7 @@ export function SignInForm() {
   const [visible, setVisible] = useState(false);
 
   return (
-    <Card className="mx-auto max-w-sm">
+    <Card>
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>
@@ -76,7 +97,9 @@ export function SignInForm() {
           <Button
             type="submit"
             className="w-full"
-            onClick={() => dispatch(loginUser(email, password, navigate))}
+            onClick={() =>
+              dispatch(loginAccount(email, password, navigate, path, afterpath))
+            }
           >
             Login
           </Button>
@@ -90,4 +113,4 @@ export function SignInForm() {
       </CardContent>
     </Card>
   );
-}
+};

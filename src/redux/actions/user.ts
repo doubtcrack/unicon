@@ -1,12 +1,13 @@
 import axios from "axios";
 import { server } from "../../server";
 import { toast } from "react-toastify";
-// create user
-export const createUser =
-  (userData: any, navigate: any) => async (dispatch: any) => {
+// create account
+export const createAccount =
+  (userData: any, navigate: any, path: any, afterpath: any) =>
+  async (dispatch: any) => {
     try {
       dispatch({
-        type: "CreateUserRequest",
+        type: "CreateAccountRequest",
       });
 
       const config = {
@@ -22,21 +23,21 @@ export const createUser =
       newUserFormData.append("password", userData.password);
 
       const response = await axios.post(
-        `${server}/user/create-user`,
+        `${server}/${path}`,
         newUserFormData,
         config
       );
 
       dispatch({
-        type: "CreateUserSuccess",
+        type: "CreateAccountSuccess",
         payload: response.data,
       });
 
       toast.success(response.data.message);
-      navigate("/");
+      navigate(afterpath);
     } catch (error: any) {
       dispatch({
-        type: "CreateUserFail",
+        type: "CreateAccountFail",
         payload: error.response?.data.message || "Failed to create user",
       });
 
@@ -44,26 +45,27 @@ export const createUser =
     }
   };
 
-//login user
-export const loginUser =
-  (email: string, password: string, navigate: any) => async (dispatch: any) => {
+//login account
+export const loginAccount =
+  (email: string, password: string, navigate: any, path: any, afterpath: any) =>
+  async (dispatch: any) => {
     try {
       dispatch({
-        type: "LoginUserRequest",
+        type: "LoginAccountRequest",
       });
       await axios.post(
-        `${server}/user/login-user`,
+        `${server}/${path}`,
         { email, password },
         { withCredentials: true }
       );
       dispatch({
-        type: "LoginUserSuccess",
+        type: "LoginAccountSuccess",
       });
-      navigate("/");
+      navigate("/dashboard" + afterpath);
       toast.success("Logged in!");
     } catch (error: any) {
       dispatch({
-        type: "LoginUserFail",
+        type: "LoginAccountFail",
         payload: "Invalid email or password",
       });
       toast.error("mismatched user and pass");

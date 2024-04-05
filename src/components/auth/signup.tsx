@@ -8,14 +8,35 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createUser } from "@/redux/actions/user";
+import { createAccount } from "@/redux/actions/user";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import { CircleUser } from "lucide-react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
 export function SignUpForm() {
+  return (
+    <Tabs
+      defaultValue="user"
+      className=" w-screen h-screen flex flex-col justify-center items-center"
+    >
+      <TabsList className="grid w-full max-w-lg grid-cols-2">
+        <TabsTrigger value="user">User</TabsTrigger>
+        <TabsTrigger value="seller">Seller</TabsTrigger>
+      </TabsList>
+      <TabsContent value="user" className="w-full max-w-lg">
+        <SignUpCard path={"user/create-user"} afterpath={"/"} />
+      </TabsContent>
+      <TabsContent value="seller" className="w-full max-w-lg">
+        <SignUpCard path={"shop/create-shop"} afterpath={"/admin/dashboard"} />
+      </TabsContent>
+    </Tabs>
+  );
+}
+
+const SignUpCard = ({ path, afterpath }: any) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -29,21 +50,24 @@ export function SignUpForm() {
 
   const dispatch: any = useDispatch();
   const navigate: any = useNavigate();
-  const handleCreateUser = () => {
+  const handleCreateAccount = () => {
     dispatch(
-      createUser(
+      createAccount(
         {
           name: name,
           email: email,
           password: password,
           avatar: avatar,
         },
-        navigate
+        navigate,
+        path,
+        afterpath
       )
     );
   };
+
   return (
-    <Card className="mx-auto max-w-sm">
+    <Card>
       <CardHeader>
         <CardTitle className="text-xl">Sign Up</CardTitle>
         <CardDescription>
@@ -99,7 +123,6 @@ export function SignUpForm() {
                 />
               )}
               <div className="flex items-center text-sm">
-                <Label htmlFor="avatar" />
                 {avatar ? (
                   <img
                     src={URL.createObjectURL(avatar)}
@@ -117,7 +140,7 @@ export function SignUpForm() {
                     id="file-input"
                     accept=".jpg,.jpeg,.png"
                     onChange={handleFileInputChange}
-                    className="sr-only"
+                    className="sr-only left-0"
                   />
                 </Label>
               </div>
@@ -126,7 +149,7 @@ export function SignUpForm() {
           <Button
             type="submit"
             className="w-full"
-            onClick={() => handleCreateUser()}
+            onClick={() => handleCreateAccount()}
           >
             Create an account
           </Button>
@@ -140,4 +163,4 @@ export function SignUpForm() {
       </CardContent>
     </Card>
   );
-}
+};

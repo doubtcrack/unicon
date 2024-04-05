@@ -4,7 +4,7 @@ import SignUpPage from "./pages/Auth/SignUpPage";
 import SignInPage from "./pages/Auth/SignInPage";
 import { useEffect } from "react";
 import Store from "./redux/store";
-import { loadUser } from "./redux/actions/user";
+import { loadSeller, loadUser } from "./redux/actions/user";
 import { getAllProducts } from "./redux/actions/product";
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
@@ -67,6 +67,10 @@ const router = createBrowserRouter([
         element: <ActivationPage />,
       },
       {
+        path: "seller/activation/:activation_token",
+        element: <ActivationPage />,
+      },
+      {
         path: "*",
         element: <NotFoundPage />,
       },
@@ -112,8 +116,9 @@ const router = createBrowserRouter([
 function App() {
   useEffect(() => {
     Store.dispatch(loadUser());
+    Store.dispatch(loadSeller());
     Store.dispatch(getAllProducts());
-  }, [loadUser, getAllProducts]);
+  }, [loadUser, loadSeller, getAllProducts]);
   return (
     <>
       <RouterProvider router={router} />

@@ -5,12 +5,13 @@ import { useNavigate } from "react-router-dom";
 const SignInPage = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state: any) => state.user);
+  const { isSeller } = useSelector((state: any) => state.seller);
 
-  if (isAuthenticated === true) {
+  if (isAuthenticated === true && isSeller === true) {
     navigate("/");
   }
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-screen w-screen">
       <SignInForm />
     </div>
   );

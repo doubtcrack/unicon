@@ -13,7 +13,7 @@ const EachOrderTrackPage = () => {
 
   useEffect(() => {
     dispatch(getAllOrdersOfUser(user?._id));
-  }, []);
+  }, [user, orders]);
 
   return (
     <div className="flex justify-center items-center min-h-[90vh]">

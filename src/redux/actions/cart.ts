@@ -22,6 +22,9 @@ export const removeFromCart =
   };
 
 // clear cart
-export const clearCart = () => ({
-  type: "clearCart",
-});
+export const clearCart = () => async (dispatch: any) => {
+  dispatch({
+    type: "clearCart",
+  });
+  localStorage.removeItem("cartItems");
+};

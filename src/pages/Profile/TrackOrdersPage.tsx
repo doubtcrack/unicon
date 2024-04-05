@@ -14,7 +14,7 @@ const TrackOrdersPage = () => {
 
   useEffect(() => {
     dispatch(getAllOrdersOfUser(user?._id));
-  }, []);
+  }, [user]);
 
   const data: any = [];
 

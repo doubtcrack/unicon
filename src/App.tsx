@@ -103,7 +103,7 @@ function App() {
   useEffect(() => {
     Store.dispatch(loadUser());
     Store.dispatch(getAllProducts());
-  }, []);
+  }, [loadUser, getAllProducts]);
   return (
     <>
       <RouterProvider router={router} />

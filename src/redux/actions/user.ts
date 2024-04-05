@@ -14,15 +14,17 @@ export const loginUser =
         { email, password },
         { withCredentials: true }
       );
-      navigate("/");
       dispatch({
         type: "LoginUserSuccess",
       });
-    } catch (error) {
+      navigate("/");
+      toast.success("Logged in!");
+    } catch (error: any) {
       dispatch({
         type: "LoginUserFail",
         payload: "Invalid email or password",
       });
+      toast.error("mismatched user and pass");
     }
   };
 
@@ -49,7 +51,7 @@ export const loadUser = () => async (dispatch: any) => {
 };
 
 // Logout user
-export const logoutUser = () => async (dispatch: any) => {
+export const logoutUser = (navigate: any) => async (dispatch: any) => {
   try {
     dispatch({
       type: "LogoutUserRequest",
@@ -61,6 +63,7 @@ export const logoutUser = () => async (dispatch: any) => {
       type: "LogoutUserSuccess",
       payload: data?.message,
     });
+    navigate("/signin");
   } catch (error: any) {
     dispatch({
       type: "LogoutUserFail",
@@ -119,6 +122,7 @@ export const updateUserInformation =
         type: "updateUserInfoSuccess",
         payload: data?.user,
       });
+      toast.success("Info updated!");
     } catch (error: any) {
       dispatch({
         type: "updateUserInfoFailed",
@@ -132,19 +136,28 @@ export const updateAvatar = (formData: any) => async (dispatch: any) => {
   try {
     dispatch({ type: "updateUserAvatarRequest" });
 
-    const res = await axios.put(`${server}/user/update-avatar`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
+    const { res }: any = await axios.put(
+      `${server}/user/update-avatar`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      }
+    );
+    dispatch({
+      type: "updateUserAvatarSuccess",
+      payload: {
+        successMessage: "Avatar updated succesfully!",
+        user: res?.user,
       },
-      withCredentials: true,
     });
-
-    dispatch({ type: "updateUserAvatarSuccess" });
     dispatch(loadUser());
     toast.success("Avatar updated successfully!");
   } catch (error: any) {
     dispatch({ type: "updateUserAvatarFailed", payload: error.message });
-    toast.error(error.message);
+    // toast.error(error.message);
   }
 };
 

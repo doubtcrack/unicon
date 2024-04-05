@@ -40,7 +40,7 @@ const OrderDetailsPage = () => {
   };
   useEffect(() => {
     dispatch(getAllOrdersOfUser(user?._id));
-  }, []);
+  }, [user, orders]);
 
   const data = orders && orders.find((item: any) => item?._id === id);
   const items: any = [];

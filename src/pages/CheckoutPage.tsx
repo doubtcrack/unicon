@@ -34,7 +34,7 @@ const CheckoutPage = () => {
         phone: user.phoneNumber,
       });
     }
-  }, [user]);
+  }, [user, cart]);
 
   function updateFields(fields: any) {
     setData((prev) => ({ ...prev, ...fields }));

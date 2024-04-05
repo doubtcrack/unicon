@@ -8,9 +8,40 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
+import { createUser } from "@/redux/actions/user";
+import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+import { CircleUser } from "lucide-react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 export function SignUpForm() {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [visible, setVisible] = useState(false);
+  const [avatar, setAvatar] = useState(null);
+
+  const handleFileInputChange = (e: any) => {
+    const file = e.target.files[0];
+    setAvatar(file);
+  };
+
+  const dispatch: any = useDispatch();
+  const navigate: any = useNavigate();
+  const handleCreateUser = () => {
+    dispatch(
+      createUser(
+        {
+          name: name,
+          email: email,
+          password: password,
+          avatar: avatar,
+        },
+        navigate
+      )
+    );
+  };
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
@@ -23,22 +54,80 @@ export function SignUpForm() {
         <div className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="full-name">Your name</Label>
-            <Input id="full-name" placeholder="aman" required />
+            <Input
+              type="text"
+              name="text"
+              autoComplete="name"
+              placeholder="aman"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input
-              id="email"
               type="email"
+              name="email"
+              autoComplete="email"
+              value={email}
               placeholder="aman@example.com"
               required
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" />
+            <Input
+              type={visible ? "text" : "password"}
+              name="password"
+              autoComplete="current-password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <div className="flex justify-between">
+              {visible ? (
+                <EyeOpenIcon
+                  className="cursor-pointer"
+                  onClick={() => setVisible(false)}
+                />
+              ) : (
+                <EyeClosedIcon
+                  className="cursor-pointer"
+                  onClick={() => setVisible(true)}
+                />
+              )}
+              <div className="flex items-center text-sm">
+                <Label htmlFor="avatar" />
+                {avatar ? (
+                  <img
+                    src={URL.createObjectURL(avatar)}
+                    alt="avatar"
+                    className="h-8 w-8 rounded-full"
+                  />
+                ) : (
+                  <CircleUser size={"20"} />
+                )}
+                <Label htmlFor="file-input">
+                  <span className="text-xs"> &nbsp;Upload a file</span>
+                  <Input
+                    type="file"
+                    name="avatar"
+                    id="file-input"
+                    accept=".jpg,.jpeg,.png"
+                    onChange={handleFileInputChange}
+                    className="sr-only"
+                  />
+                </Label>
+              </div>
+            </div>
           </div>
-          <Button type="submit" className="w-full">
+          <Button
+            type="submit"
+            className="w-full"
+            onClick={() => handleCreateUser()}
+          >
             Create an account
           </Button>
         </div>

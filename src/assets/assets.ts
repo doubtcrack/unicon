@@ -1,3 +1,3 @@
 import about from "../assets/about.png";
-
-export { about };
+import avatar from '../assets/default-avatar.png'
+export { about, avatar };

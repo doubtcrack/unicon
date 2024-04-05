@@ -5,7 +5,6 @@ import { updateAvatar, updateUserInformation } from "@/redux/actions/user";
 import { ImagePlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 
 const ProfilePage = () => {
   const { user, error, successMessage } = useSelector(
@@ -17,6 +16,7 @@ const ProfilePage = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState(0);
   const [password, setPassword] = useState("");
+  const [avatar, setAvatar] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -28,11 +28,9 @@ const ProfilePage = () => {
 
   useEffect(() => {
     if (error) {
-      toast.error(error);
       dispatch({ type: "clearErrors" });
     }
     if (successMessage) {
-      toast.success(successMessage);
       dispatch({ type: "clearMessages" });
     }
   }, [error, successMessage, dispatch]);
@@ -47,6 +45,7 @@ const ProfilePage = () => {
     const formData = new FormData();
     formData.append("image", file);
     dispatch(updateAvatar(formData));
+    setAvatar(file);
   };
 
   return (
@@ -65,9 +64,9 @@ const ProfilePage = () => {
           <div className="flex justify-center w-full">
             <div className="relative">
               <img
-                src={`${user?.avatar}`}
-                className="w-20 h-20 rounded-full object-cover border-border"
-                alt=""
+                src={avatar ? URL.createObjectURL(avatar) : user?.avatar}
+                alt="avatar"
+                className="h-16 w-16 rounded-full"
               />
               <div className="rounded-full bg-secondary flex items-center justify-center cursor-pointer absolute bottom-0 right-0 p-[5px]">
                 <input

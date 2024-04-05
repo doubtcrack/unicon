@@ -1,6 +1,48 @@
 import axios from "axios";
 import { server } from "../../server";
 import { toast } from "react-toastify";
+// create user
+export const createUser =
+  (userData: any, navigate: any) => async (dispatch: any) => {
+    try {
+      dispatch({
+        type: "CreateUserRequest",
+      });
+
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
+      const newUserFormData = new FormData();
+      newUserFormData.append("file", userData?.avatar);
+      newUserFormData.append("name", userData.name);
+      newUserFormData.append("email", userData.email);
+      newUserFormData.append("password", userData.password);
+
+      const response = await axios.post(
+        `${server}/user/create-user`,
+        newUserFormData,
+        config
+      );
+
+      dispatch({
+        type: "CreateUserSuccess",
+        payload: response.data,
+      });
+
+      toast.success(response.data.message);
+      navigate("/");
+    } catch (error: any) {
+      dispatch({
+        type: "CreateUserFail",
+        payload: error.response?.data.message || "Failed to create user",
+      });
+
+      toast.error(error.response.data.message || "Failed to create user");
+    }
+  };
 
 //login user
 export const loginUser =
@@ -156,8 +198,11 @@ export const updateAvatar = (formData: any) => async (dispatch: any) => {
     dispatch(loadUser());
     toast.success("Avatar updated successfully!");
   } catch (error: any) {
-    dispatch({ type: "updateUserAvatarFailed", payload: error.message });
-    // toast.error(error.message);
+    dispatch({
+      type: "updateUserAvatarFailed",
+      payload: error.response.data?.message,
+    });
+    toast.error("Try Again!");
   }
 };
 

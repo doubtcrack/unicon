@@ -20,6 +20,8 @@ import SettingsPage from "./pages/Profile/SettingsPage";
 import ChatBoxPage from "./pages/Profile/ChatBoxPage";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
 import EachOrderTrackPage from "./pages/Profile/EachOrderTrackPage";
+import ActivationPage from "./pages/Auth/ActivationPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +61,14 @@ const router = createBrowserRouter([
       {
         path: "user/order/:id",
         element: <OrderDetailsPage />,
+      },
+      {
+        path: "activation/:activation_token",
+        element: <ActivationPage />,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
       },
     ],
   },

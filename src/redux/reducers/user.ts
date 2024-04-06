@@ -83,17 +83,17 @@ export const userReducer = createReducer(initialState, (builder) => {
       state.loading = false;
       state.error = action.payload;
     })
-    .addCase("updateUserAvatarRequest", (state: any) => {
+    .addCase("updateAvatarRequest", (state: any) => {
       state.isLoading = true;
       state.error = null;
     })
-    .addCase("updateUserAvatarSuccess", (state: any, action: any) => {
+    .addCase("updateAvatarSuccess", (state: any, action: any) => {
       state.isLoading = false;
       state.successMessage = action.payload.successMessage;
       state.user = action.payload.user;
       state.error = null;
     })
-    .addCase("updateUserAvatarFailed", (state: any, action: any) => {
+    .addCase("updateAvatarFailed", (state: any, action: any) => {
       state.isLoading = false;
       state.error = action.payload;
     })
@@ -119,6 +119,17 @@ export const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase("updateUserAddressFailed", (state, action: any) => {
       state.addressloading = false;
+      state.error = action.payload;
+    })
+    .addCase("updateShopInfoRequest", (state) => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase("updateShopInfoSuccess", (state) => {
+      state.loading = false;
+    })
+    .addCase("updateShopInfoFailed", (state, action: any) => {
+      state.loading = false;
       state.error = action.payload;
     })
     .addCase("deleteUserAddressRequest", (state) => {

@@ -44,7 +44,7 @@ const ProfilePage = () => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("image", file);
-    dispatch(updateAvatar(formData));
+    dispatch(updateAvatar(formData, "user/update-avatar"));
     setAvatar(file);
   };
 

@@ -1,4 +1,4 @@
-import GenericTable from "@/components/profile/genericTable";
+import GenericTable from "@/components/genericTable";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getAllOrdersOfUser } from "@/redux/actions/order";
@@ -79,7 +79,7 @@ const TrackOrdersPage = () => {
       },
     },
   ];
-  return <GenericTable data={data} columns={columns} />;
+  return <GenericTable data={data} columns={columns} tableWidth="w-[80vw]" />;
 };
 
 export default TrackOrdersPage;

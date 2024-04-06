@@ -61,7 +61,7 @@ export const loginAccount =
       dispatch({
         type: "LoginAccountSuccess",
       });
-      navigate("/dashboard" + afterpath);
+      navigate(afterpath);
       toast.success("Logged in!");
     } catch (error: any) {
       dispatch({
@@ -69,6 +69,29 @@ export const loginAccount =
         payload: "Invalid email or password",
       });
       toast.error("mismatched user and pass");
+    }
+  };
+
+// Logout account
+export const logoutAccount =
+  (navigate: any, path: any) => async (dispatch: any) => {
+    try {
+      dispatch({
+        type: "LogoutAccountRequest",
+      });
+      const { data } = await axios.get(`${server}/${path}/logout`, {
+        withCredentials: true,
+      });
+      dispatch({
+        type: "LogoutAccountSuccess",
+        payload: data?.message,
+      });
+      navigate("/signin");
+    } catch (error: any) {
+      dispatch({
+        type: "LogoutUserFail",
+        payload: error.response.data?.message,
+      });
     }
   };
 
@@ -94,29 +117,6 @@ export const loadUser = () => async (dispatch: any) => {
   }
 };
 
-// Logout user
-export const logoutAccount =
-  (navigate: any, path: any) => async (dispatch: any) => {
-    try {
-      dispatch({
-        type: "LogoutAccountRequest",
-      });
-      const { data } = await axios.get(`${server}/${path}/logout`, {
-        withCredentials: true,
-      });
-      dispatch({
-        type: "LogoutAccountSuccess",
-        payload: data?.message,
-      });
-      navigate("/signin");
-    } catch (error: any) {
-      dispatch({
-        type: "LogoutUserFail",
-        payload: error.response.data?.message,
-      });
-    }
-  };
-
 // load seller
 export const loadSeller = () => async (dispatch: any) => {
   try {
@@ -138,7 +138,37 @@ export const loadSeller = () => async (dispatch: any) => {
   }
 };
 
-// user update information
+// update avatar
+export const updateAvatar =
+  (formData: any, path: any) => async (dispatch: any) => {
+    try {
+      dispatch({ type: "updateAvatarRequest" });
+
+      const { res }: any = await axios.put(`${server}/${path}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
+      dispatch({
+        type: "updateAvatarSuccess",
+        payload: {
+          successMessage: "Avatar updated succesfully!",
+          user: res?.user,
+        },
+      });
+      path.includes("user") ? dispatch(loadUser()) : dispatch(loadSeller());
+      toast.success("Avatar updated successfully!");
+    } catch (error: any) {
+      dispatch({
+        type: "updateAvatarFailed",
+        payload: error.response.data?.message,
+      });
+      toast.error("Try Again!");
+    }
+  };
+
+// update user information
 export const updateUserInformation =
   (name: string, email: string, phoneNumber: number, password: string) =>
   async (dispatch: any) => {
@@ -175,39 +205,6 @@ export const updateUserInformation =
       });
     }
   };
-
-// update user avatar
-export const updateAvatar = (formData: any) => async (dispatch: any) => {
-  try {
-    dispatch({ type: "updateUserAvatarRequest" });
-
-    const { res }: any = await axios.put(
-      `${server}/user/update-avatar`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        withCredentials: true,
-      }
-    );
-    dispatch({
-      type: "updateUserAvatarSuccess",
-      payload: {
-        successMessage: "Avatar updated succesfully!",
-        user: res?.user,
-      },
-    });
-    dispatch(loadUser());
-    toast.success("Avatar updated successfully!");
-  } catch (error: any) {
-    dispatch({
-      type: "updateUserAvatarFailed",
-      payload: error.response.data?.message,
-    });
-    toast.error("Try Again!");
-  }
-};
 
 // update user password
 export const updateUserPassword =
@@ -275,6 +272,47 @@ export const updatUserAddress =
         type: "updateUserAddressFailed",
         payload: error.response.data?.message,
       });
+    }
+  };
+
+// update shop information
+export const updateShopInfo =
+  (
+    name: string,
+    address: string,
+    zipCode: any,
+    phoneNumber: any,
+    description: string
+  ) =>
+  async (dispatch: any) => {
+    try {
+      dispatch({
+        type: "updateShopInfoRequest",
+      });
+
+      await axios.put(
+        `${server}/shop/update-seller-info`,
+        {
+          name,
+          address,
+          zipCode,
+          phoneNumber,
+          description,
+        },
+        { withCredentials: true }
+      );
+
+      dispatch({
+        type: "updateShopInfoSuccess",
+      });
+      toast.success("Shop info updated successfully!");
+      dispatch(loadSeller());
+    } catch (error: any) {
+      dispatch({
+        type: "updateShopInfoFailed",
+        payload: error.response.data?.message,
+      });
+      toast.error("Failed to update shop info. Please try again.");
     }
   };
 

@@ -23,18 +23,19 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { DropdownMenu } from "../ui/dropdown-menu";
-import { Card } from "../ui/card";
-import { Checkbox } from "../ui/checkbox";
+import { DropdownMenu } from "@/components/ui/dropdown-menu";
+import { Card } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Check } from "lucide-react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 type Props<T> = {
   data: T[];
   columns: ColumnDef<T>[];
+  tableWidth: string;
 };
 
-function GenericTable<T>({ data, columns }: Props<T>) {
+function GenericTable<T>({ data, columns, tableWidth }: Props<T>) {
   const [sorting, setSorting]: any = React.useState([]);
   const [columnFilters, setColumnFilters]: any = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
@@ -108,7 +109,9 @@ function GenericTable<T>({ data, columns }: Props<T>) {
         </DropdownMenu>
       </div>
       <div className="flex justify-center">
-        <ScrollArea className="whitespace-nowrap rounded-md border w-[80vw]">
+        <ScrollArea
+          className={"whitespace-nowrap rounded-md border " + tableWidth}
+        >
           <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup: any) => (

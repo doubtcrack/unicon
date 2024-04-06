@@ -1,4 +1,4 @@
-import GenericTable from "@/components/profile/genericTable";
+import GenericTable from "@/components/genericTable";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { createReview, getAllOrdersOfUser } from "@/redux/actions/order";
@@ -45,7 +45,7 @@ const OrderDetailsPage = () => {
   const data = orders && orders.find((item: any) => item?._id === id);
   const items: any = [];
   data &&
-    data?.cart.map((item: any, index: any) => {
+    data?.cart.map((item: any) => {
       totalPrice = totalPrice + item.discountPrice;
       items.push({
         img: item.images[0],
@@ -120,7 +120,7 @@ const OrderDetailsPage = () => {
             Placed on: <span>{data?.createdAt?.slice(0, 10)}</span>
           </h5>
         </div>
-        <GenericTable data={items} columns={columns} />
+        <GenericTable data={items} columns={columns} tableWidth="w-[80vw]" />
         <Separator className="my-8" />
         <div className="text-right">
           Total Price: <strong>{totalPrice}</strong> Rs.

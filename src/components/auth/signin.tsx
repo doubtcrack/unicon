@@ -26,10 +26,10 @@ export function SignInForm() {
         <TabsTrigger value="seller">Seller</TabsTrigger>
       </TabsList>
       <TabsContent value="user" className="w-full max-w-lg">
-        <SignInCard path={"user/login-user"} afterpath={"/"} />
+        <SignInCard path={"user/login-user"} afterpath={"/dashboard"} />
       </TabsContent>
       <TabsContent value="seller" className="w-full max-w-lg">
-        <SignInCard path={"shop/login-shop"} afterpath={"/admin/dashboard"} />
+        <SignInCard path={"shop/login-shop"} afterpath={"/shop/dashboard"} />
       </TabsContent>
     </Tabs>
   );

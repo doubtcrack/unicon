@@ -17,7 +17,7 @@ import ProfileLayout from "./pages/Profile/ProfileLayout";
 import OrdersPage from "./pages/Profile/OrdersPage";
 import TrackOrdersPage from "./pages/Profile/TrackOrdersPage";
 import SettingsPage from "./pages/Profile/SettingsPage";
-import ChatBoxPage from "./pages/Profile/ChatBoxPage";
+import InboxPage from "./pages/Profile/InboxPage";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
 import EachOrderTrackPage from "./pages/Profile/EachOrderTrackPage";
 import ActivationPage from "./pages/Auth/ActivationPage";
@@ -110,8 +110,8 @@ const router = createBrowserRouter([
         element: <EachOrderTrackPage />,
       },
       {
-        path: "chat",
-        element: <ChatBoxPage />,
+        path: "inbox",
+        element: <InboxPage />,
       },
       {
         path: "settings",

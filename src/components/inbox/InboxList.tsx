@@ -13,13 +13,14 @@ const InboxList = ({
   userData,
   online,
   setActiveStatus,
+  navigationPath,
+  path,
 }: any) => {
   const [active, setActive] = useState(0);
   const [user, setUser] = useState<any>();
   const navigate = useNavigate();
-
   const handleClick = (id: any) => {
-    navigate(`/dashboard/chat?${id}`);
+    navigate(`${navigationPath}?${id}`);
     setOpen(true);
   };
 
@@ -29,8 +30,8 @@ const InboxList = ({
 
     const getUser = async () => {
       try {
-        const res = await axios.get(`${server}/shop/get-shop-info/${userId}`);
-        setUser(res.data.shop);
+        const res = await axios.get(`${server}/${path}/${userId}`);
+        path.includes("user") ? setUser(res.data.user) : setUser(res.data.shop);
       } catch (error) {
         console.log(error);
       }

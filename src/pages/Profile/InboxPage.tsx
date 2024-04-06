@@ -3,14 +3,14 @@ import { useSelector } from "react-redux";
 import socketIO from "socket.io-client";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import InboxList from "@/components/profile/inbox/InboxList";
-import UserInbox from "@/components/profile/inbox/UserInbox";
+import InboxList from "@/components/inbox/InboxList";
+import Inbox from "@/components/inbox/Inbox";
 import { Card } from "@/components/ui/card";
 
 const ENDPOINT = socket_server;
 const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 
-const ChatBoxPage = () => {
+const InboxPage = () => {
   const { user } = useSelector((state: any) => state.user);
   const [conversations, setConversations] = useState<any[]>([]);
   const [arrivalMessage, setArrivalMessage] = useState<any>(null);
@@ -226,13 +226,15 @@ const ChatBoxPage = () => {
               userData={userData}
               online={onlineCheck(item)}
               setActiveStatus={setActiveStatus}
+              navigationPath={"/dashboard/inbox"}
+              path={"shop/get-shop-info"}
             />
           ))}
         </Card>
       )}
 
       {open && (
-        <UserInbox
+        <Inbox
           setOpen={setOpen}
           newMessage={newMessage}
           setNewMessage={setNewMessage}
@@ -249,4 +251,4 @@ const ChatBoxPage = () => {
   );
 };
 
-export default ChatBoxPage;
+export default InboxPage;

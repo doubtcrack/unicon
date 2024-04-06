@@ -56,7 +56,7 @@ const Aside = () => {
               label="Orders"
             />
           </Link>
-          <Link to="/dashboard/chat">
+          <Link to="/dashboard/inbox">
             <NavButton
               icon={<MessageSquare className="size-5" />}
               label="Inbox"

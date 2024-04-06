@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { timeAgo } from "@/lib/timeago";
 import { ArrowRight, Images, Send } from "lucide-react";
 import { useState } from "react";
-import { timeAgo } from "./../../../lib/timeago";
 
-const UserInbox = ({
+const Inbox = ({
   setOpen,
   newMessage,
   setNewMessage,
@@ -15,6 +15,7 @@ const UserInbox = ({
   userData,
   activeStatus,
   scrollRef,
+  setMessages,
   handleImageUpload,
 }: any) => {
   const [activeStatusText, setActiveStatusText] = useState(
@@ -133,4 +134,4 @@ const UserInbox = ({
   );
 };
 
-export default UserInbox;
+export default Inbox;

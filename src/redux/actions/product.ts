@@ -26,7 +26,7 @@ export const createProduct = (newForm: any) => async (dispatch: any) => {
       type: "productCreateFail",
       payload: error?.response?.data?.message,
     });
-    toast.error("Something went wrong! Please Try again!");
+    toast.error(error?.response?.data?.message);
   }
 };
 

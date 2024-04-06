@@ -6,7 +6,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { logoutUser } from "@/redux/actions/user";
+import { logoutAccount } from "@/redux/actions/user";
 import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -47,7 +47,9 @@ const ProfileNavCard = () => {
                 <Link to="/dashboard/settings">Settings</Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => dispatch(logoutUser(navigate))}>
+              <DropdownMenuItem
+                onClick={() => dispatch(logoutAccount(navigate, "user"))}
+              >
                 Logout
               </DropdownMenuItem>
             </DropdownMenuContent>

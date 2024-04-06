@@ -95,26 +95,27 @@ export const loadUser = () => async (dispatch: any) => {
 };
 
 // Logout user
-export const logoutUser = (navigate: any) => async (dispatch: any) => {
-  try {
-    dispatch({
-      type: "LogoutUserRequest",
-    });
-    const { data } = await axios.get(`${server}/user/logout`, {
-      withCredentials: true,
-    });
-    dispatch({
-      type: "LogoutUserSuccess",
-      payload: data?.message,
-    });
-    navigate("/signin");
-  } catch (error: any) {
-    dispatch({
-      type: "LogoutUserFail",
-      payload: error.response.data?.message,
-    });
-  }
-};
+export const logoutAccount =
+  (navigate: any, path: any) => async (dispatch: any) => {
+    try {
+      dispatch({
+        type: "LogoutAccountRequest",
+      });
+      const { data } = await axios.get(`${server}/${path}/logout`, {
+        withCredentials: true,
+      });
+      dispatch({
+        type: "LogoutAccountSuccess",
+        payload: data?.message,
+      });
+      navigate("/signin");
+    } catch (error: any) {
+      dispatch({
+        type: "LogoutUserFail",
+        payload: error.response.data?.message,
+      });
+    }
+  };
 
 // load seller
 export const loadSeller = () => async (dispatch: any) => {

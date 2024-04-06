@@ -22,6 +22,13 @@ import OrderDetailsPage from "./pages/OrderDetailsPage";
 import EachOrderTrackPage from "./pages/Profile/EachOrderTrackPage";
 import ActivationPage from "./pages/Auth/ActivationPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import ShopLayout from "./pages/Shop/ShopLayout";
+import ShopDashboardPage from "./pages/Shop/ShopDashboardPage";
+import ShopAllOrdersPage from "./pages/Shop/ShopAllOrdersPage";
+import ShopAllProductsPage from "./pages/Shop/ShopAllProductsPage";
+import ShopCreateProductPage from "./pages/Shop/ShopCreateProductPage";
+import ShopSettingsPage from "./pages/Shop/ShopSettingsPage";
+import ShopInboxPage from "./pages/Shop/ShopInboxPage";
 
 const router = createBrowserRouter([
   {
@@ -109,6 +116,42 @@ const router = createBrowserRouter([
       {
         path: "settings",
         element: <SettingsPage />,
+      },
+    ],
+  },
+  {
+    path: "/shop/dashboard",
+    element: (
+      <>
+        <ShopLayout>
+          <Outlet />
+        </ShopLayout>
+      </>
+    ),
+    children: [
+      {
+        path: "",
+        element: <ShopDashboardPage />,
+      },
+      {
+        path: "orders",
+        element: <ShopAllOrdersPage />,
+      },
+      {
+        path: "products",
+        element: <ShopAllProductsPage />,
+      },
+      {
+        path: "create-product",
+        element: <ShopCreateProductPage />,
+      },
+      {
+        path: "inbox",
+        element: <ShopInboxPage />,
+      },
+      {
+        path: "settings",
+        element: <ShopSettingsPage />,
       },
     ],
   },

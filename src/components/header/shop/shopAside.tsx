@@ -1,18 +1,19 @@
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import {
+  CirclePlus,
+  LayoutDashboard,
   LogOut,
-  MessageSquare,
-  Radar,
+  MessagesSquare,
+  PackageSearch,
   Settings2,
   ShoppingBag,
-  UserRound,
 } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "../ui/tooltip";
+} from "@/components/ui/tooltip";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutAccount } from "@/redux/actions/user";
@@ -23,11 +24,11 @@ const NavButton = ({ icon, label, tooltipLabel }: any) => (
       <Button
         variant="ghost"
         size="icon"
-        className="rounded-md hover:bg-muted lg:w-40 lg:justify-start lg:p-4 text-muted-foreground"
+        className="rounded-md hover:bg-muted lg:w-40 lg:justify-start lg:p-4 text-muted-foreground my-1"
         aria-label={label}
       >
         {icon}
-        <div className="hidden lg:block pl-2">{label}</div>
+        <div className="flex pl-2 text-justify">{label}</div>
       </Button>
     </TooltipTrigger>
     <TooltipContent side="right" sideOffset={5}>
@@ -36,41 +37,46 @@ const NavButton = ({ icon, label, tooltipLabel }: any) => (
   </Tooltip>
 );
 
-const Aside = () => {
+const ShopAside = () => {
   const dispatch: any = useDispatch();
   const navigate: any = useNavigate();
   return (
-    <aside className="inset-y fixed left-0 z-20 flex h-[90vh] flex-col border-r">
+    <aside className="hidden inset-y fixed left-0 z-20 md:flex h-[90vh] flex-col border-r">
       <TooltipProvider>
         <nav className="grid gap-1 p-2 lg:my-4">
-          <Link to={"/dashboard"}>
+          <Link to={"/shop/dashboard"}>
             <NavButton
-              icon={<UserRound className="size-5" />}
-              label="Profile"
+              icon={<LayoutDashboard className="size-5" />}
+              label="Dashboard"
             />
           </Link>
-          <Link to="/dashboard/orders">
-            {" "}
+          <Link to="/shop/dashboard/orders">
             <NavButton
               icon={<ShoppingBag className="size-5" />}
-              label="Orders"
+              label="All Orders"
             />
           </Link>
-          <Link to="/dashboard/chat">
+          <Link to="/shop/dashboard/products">
             <NavButton
-              icon={<MessageSquare className="size-5" />}
+              icon={<PackageSearch className="size-5" />}
+              label="All Products"
+            />
+          </Link>
+          <Link to="/shop/dashboard/create-product">
+            <NavButton
+              icon={<CirclePlus className="size-5" />}
+              label="Create Product"
+            />
+          </Link>
+          <Link to="/shop/dashboard/inbox">
+            <NavButton
+              icon={<MessagesSquare className="size-5" />}
               label="Inbox"
-            />
-          </Link>
-          <Link to="/dashboard/ordertrack">
-            <NavButton
-              icon={<Radar className="size-5" />}
-              label="Track Order"
             />
           </Link>
         </nav>
         <nav className="mt-auto grid gap-1 p-2">
-          <Link to="/dashboard/settings">
+          <Link to="/shop/dashboard/settings">
             <Button
               variant="ghost"
               size="icon"
@@ -87,7 +93,7 @@ const Aside = () => {
             size="icon"
             className="rounded-md hover:bg-muted lg:w-40 lg:justify-start lg:p-4 text-muted-foreground"
             aria-label={"Logout"}
-            onClick={() => dispatch(logoutAccount(navigate, "user"))}
+            onClick={() => dispatch(logoutAccount(navigate, "shop"))}
           >
             <LogOut className="size-5" />
             <div className="hidden lg:block pl-2">Logout</div>
@@ -98,4 +104,4 @@ const Aside = () => {
   );
 };
 
-export default Aside;
+export default ShopAside;

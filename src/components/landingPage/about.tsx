@@ -16,22 +16,22 @@ const AboutSection = () => {
                 <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
                   About{" "}
                 </span>
-                UniConnect
+                unicon
               </h2>
               <p className="text-xl text-muted-foreground mt-4">
-                UniConnect is a specialized web platform designed to simplify
-                the lives of university students by providing a convenient
+                unicon is a specialized web platform designed to simplify the
+                lives of university students by providing a convenient
                 marketplace for buying, selling, and trading used textbooks,
                 stationery, and other study materials. Our mission is clear: to
                 facilitate connections among students, empowering them to
                 support each other academically and financially.
               </p>
               <p className="text-xl text-muted-foreground mt-4">
-                At UniConnect, we recognize the challenges students face when it
+                At unicon, we recognize the challenges students face when it
                 comes to acquiring necessary study materials at reasonable
                 prices. With the ever-rising costs of textbooks and limited
                 budgets, finding affordable solutions can be daunting. That's
-                where UniConnect steps in. We offer a streamlined platform where
+                where unicon steps in. We offer a streamlined platform where
                 students can effortlessly discover great deals on textbooks or
                 effortlessly pass on materials they no longer require.
               </p>

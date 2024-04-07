@@ -28,7 +28,7 @@ const NavButton = ({ icon, label, tooltipLabel }: any) => (
         aria-label={label}
       >
         {icon}
-        <div className="flex pl-2 text-justify">{label}</div>
+        <div className="hidden lg:flex pl-2 text-justify">{label}</div>
       </Button>
     </TooltipTrigger>
     <TooltipContent side="right" sideOffset={5}>

@@ -1,7 +1,8 @@
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Menu, Package2 } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
+import { SVGIcons } from "../svgIcons";
 
 const MobileNav = () => {
   return (
@@ -14,16 +15,22 @@ const MobileNav = () => {
       </SheetTrigger>
       <SheetContent side="left">
         <nav className="grid gap-6 text-lg font-medium">
-          <Link
-            to="/"
-            className="flex items-center gap-2 text-lg font-semibold"
-          >
-            <Package2 className="h-6 w-6" />
-            <span className="sr-only">Acme Inc</span>
-          </Link>
-          <Link to="/" className="hover:text-foreground">
-            Dashboard
-          </Link>
+          <div className="flex justify-start items-end my-4">
+            <Link
+              to="/"
+              className="flex items-center gap-2 text-lg font-semibold md:text-base"
+            >
+              <SVGIcons.logo />
+
+              <span className="sr-only">UNICON</span>
+            </Link>
+            <Link
+              to="/"
+              className="text-foreground px-2 font-bold transition-colors hover:text-foreground"
+            >
+              UNICON
+            </Link>
+          </div>
           <Link to="/" className="text-muted-foreground hover:text-foreground">
             Orders
           </Link>

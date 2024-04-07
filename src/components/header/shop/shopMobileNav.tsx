@@ -9,7 +9,6 @@ import { Menu } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   CirclePlus,
-  LayoutDashboard,
   LogOut,
   MessagesSquare,
   PackageSearch,
@@ -19,6 +18,7 @@ import {
 import { cn } from "@/lib/utils";
 import { logoutAccount } from "@/redux/actions/user";
 import { useDispatch } from "react-redux";
+import { SVGIcons } from "@/components/svgIcons";
 const NavButton = ({ icon, label, link }: any) => (
   <Link to={link}>
     <SheetClose>
@@ -49,11 +49,22 @@ const ShopMobileNav = () => {
       </SheetTrigger>
       <SheetContent side="left">
         <nav className="grid gap-1 p-2 lg:my-4">
-          <NavButton
-            icon={<LayoutDashboard className="size-5" />}
-            label="Dashboard"
-            link={"/shop/dashboard"}
-          />
+          <div className="flex justify-start items-end my-4">
+            <Link
+              to="/"
+              className="flex items-center gap-2 text-lg font-semibold md:text-base"
+            >
+              <SVGIcons.logo />
+
+              <span className="sr-only">UNICON</span>
+            </Link>
+            <Link
+              to="/"
+              className="text-foreground px-2 font-bold transition-colors hover:text-foreground"
+            >
+              UNICON
+            </Link>
+          </div>
           <NavButton
             icon={<ShoppingBag className="size-5" />}
             label="All Orders"

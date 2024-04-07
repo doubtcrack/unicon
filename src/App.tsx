@@ -29,6 +29,7 @@ import ShopAllProductsPage from "./pages/Shop/ShopAllProductsPage";
 import ShopCreateProductPage from "./pages/Shop/ShopCreateProductPage";
 import ShopSettingsPage from "./pages/Shop/ShopSettingsPage";
 import ShopInboxPage from "./pages/Shop/ShopInboxPage";
+import ShopOrderDetailsPage from "./pages/Shop/ShopOrderDetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -136,6 +137,10 @@ const router = createBrowserRouter([
       {
         path: "orders",
         element: <ShopAllOrdersPage />,
+      },
+      {
+        path: "order/:id",
+        element: <ShopOrderDetailsPage />,
       },
       {
         path: "products",

@@ -76,7 +76,7 @@ const ShopDashboardPage = () => {
       enableHiding: false,
       cell: (row: any) => {
         return (
-          <Link to={`/user/order/${row.row.original.id}`}>
+          <Link to={`/shop/dashboard/order/${row.row.original.id}`}>
             <Eye size={"15"} className="text-muted-foreground"></Eye>
           </Link>
         );

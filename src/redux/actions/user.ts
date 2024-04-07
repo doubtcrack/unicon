@@ -33,7 +33,7 @@ export const createAccount =
         payload: response.data,
       });
 
-      toast.success(response.data.message);
+      toast.success(response?.data.message);
       navigate(afterpath);
     } catch (error: any) {
       dispatch({
@@ -41,7 +41,7 @@ export const createAccount =
         payload: error.response?.data.message || "Failed to create user",
       });
 
-      toast.error(error.response.data.message || "Failed to create user");
+      toast.error(error.response?.data.message || "Failed to create user");
     }
   };
 
@@ -219,15 +219,15 @@ export const updateUserPassword =
       );
       dispatch({
         type: "updateUserPasswordSuccess",
-        payload: res.data.success,
+        payload: res?.data?.success,
       });
       toast.success("Password changed Successfully!");
     } catch (error: any) {
       dispatch({
         type: "updateUserPasswordFailed",
-        payload: error.response.data.message,
+        payload: error.response?.data?.message,
       });
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message);
     }
   };
 

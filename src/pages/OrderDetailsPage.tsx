@@ -42,13 +42,13 @@ const OrderDetailsPage = () => {
     if (user) {
       dispatch(getAllOrdersOfUser(user?._id));
     }
-  }, [user, orders]);
+  }, [user]);
 
   const data = orders && orders.find((item: any) => item?._id === id);
   const items: any = [];
   data &&
     data?.cart.map((item: any) => {
-      totalPrice = totalPrice + item.discountPrice;
+      totalPrice = totalPrice + item.discountPrice*item.qty;
       items.push({
         img: item.images[0],
         title: item.name,

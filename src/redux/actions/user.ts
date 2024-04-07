@@ -380,7 +380,7 @@ export const updateOrderStatus =
       dispatch({ type: "UPDATE_ORDER_STATUS_SUCCESS", payload: res.data });
 
       toast.success("Order updated!");
-      navigate("/dashboard-orders");
+      navigate("/shop/dashboard/orders");
     } catch (error: any) {
       dispatch({ type: "UPDATE_ORDER_STATUS_FAILURE", payload: error.message });
       toast.error(error.response?.data?.message || "Failed to update order.");

@@ -15,12 +15,9 @@ const Inbox = ({
   userData,
   activeStatus,
   scrollRef,
-  setMessages,
   handleImageUpload,
 }: any) => {
-  const [activeStatusText, setActiveStatusText] = useState(
-    activeStatus ? "active" : "inactive"
-  );
+  const [activeStatusText] = useState(activeStatus ? "active" : "inactive");
 
   return (
     <div className="w-full h-[80vh] flex flex-col justify-between p-2 rounded-lg">

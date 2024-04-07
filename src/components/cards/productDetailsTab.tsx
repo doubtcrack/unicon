@@ -17,7 +17,7 @@ export function ProductDetailsTab() {
   const dispatch: any = useDispatch();
   const { products } = useSelector((state: any) => state.products);
 
-  const [averageRating, totalReviewsLength, totalRatings] = useAvgRatingCalc();
+  const [averageRating, totalReviewsLength] = useAvgRatingCalc();
   useEffect(() => {
     dispatch(getAllProductsShop(data && data?.shop._id));
   }, [data]);

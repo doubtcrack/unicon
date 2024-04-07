@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import useProductHandlers from "@/hooks/useProductHandler";
 import {
-  Star,
   ShoppingCart,
   CircleUser,
   BookmarkCheck,

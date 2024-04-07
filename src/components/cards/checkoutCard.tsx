@@ -1,5 +1,4 @@
-import { ChevronDown, ChevronsDown, Coins, IterationCcw } from "lucide-react";
-import { Card } from "../ui/card";
+import { ChevronsDown, Coins } from "lucide-react";
 import { Input } from "../ui/input";
 import { MultiStepFormWrapper } from "./../multiStepFormWrapper";
 type ContactInfo = {

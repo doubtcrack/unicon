@@ -10,9 +10,7 @@ const useConversationCreator = () => {
   const { user, isAuthenticated }: any = useSelector(
     (state: any) => state.user
   );
-  const { isLoading, conversationId }: any = useSelector(
-    (state: any) => state.chat
-  );
+  const { conversationId }: any = useSelector((state: any) => state.chat);
   const data: any = useProductFilter();
 
   const handleMessageSubmit = async () => {

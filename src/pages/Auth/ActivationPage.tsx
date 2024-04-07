@@ -24,7 +24,7 @@ const ActivationPage = () => {
           .then((res) => {
             console.log(res);
           })
-          .catch((err) => {
+          .catch(() => {
             setError(true);
           });
       };

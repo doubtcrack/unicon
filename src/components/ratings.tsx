@@ -1,4 +1,4 @@
-import { Star, StarHalf } from "lucide-react";
+import { Star } from "lucide-react";
 
 const Ratings = ({ rating }: any) => {
   const renderStar = (filled: boolean, key: any) => (

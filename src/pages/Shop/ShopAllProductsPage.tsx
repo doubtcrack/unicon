@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const ShopAllProductsPage = () => {
   const dispatch: any = useDispatch();
-  const { products, isLoading } = useSelector((state: any) => state.products);
+  const { products } = useSelector((state: any) => state.products);
   const { seller } = useSelector((state: any) => state.seller);
 
   useEffect(() => {

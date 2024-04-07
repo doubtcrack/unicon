@@ -2,8 +2,7 @@ import axios from "axios";
 import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { server, socket_server } from "@/server";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import socketIO from "socket.io-client";
 import Inbox from "@/components/inbox/Inbox";
 import { Card } from "@/components/ui/card";
@@ -21,7 +20,7 @@ const ShopInboxPage = () => {
   const [newMessage, setNewMessage] = useState<any>("");
   const [onlineUsers, setOnlineUsers] = useState<any[]>([]);
   const [activeStatus, setActiveStatus] = useState<any>(false);
-  const [images, setImages] = useState<any>();
+  const [setImages] = useState<any>();
   const [open, setOpen] = useState<any>(false);
   const scrollRef: any = useRef(null);
 

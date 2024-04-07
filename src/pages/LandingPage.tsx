@@ -5,7 +5,7 @@ import { ProductCard } from "@/components/cards/productCard";
 import { PackageOpen } from "lucide-react";
 import useProductFilter from "@/hooks/useProductFilter";
 
-const HomePage = () => {
+const LandingPage = () => {
   const data = useProductFilter();
 
   return (
@@ -34,4 +34,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default LandingPage;

@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import Store from "./redux/store";
 import { loadSeller, loadUser } from "./redux/actions/user";
 import { getAllProducts } from "./redux/actions/product";
-import HomePage from "./pages/HomePage";
+import LandingPage from "./pages/LandingPage";
 import ProductPage from "./pages/ProductPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import Layout from "./pages/Layout";
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <HomePage />,
+        element: <LandingPage />,
       },
       {
         path: "product",

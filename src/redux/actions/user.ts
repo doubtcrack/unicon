@@ -365,3 +365,24 @@ export const getAllUsers = () => async (dispatch: any) => {
     });
   }
 };
+
+// update seller order status
+export const updateOrderStatus =
+  (id: any, status: any, navigate: any) => async (dispatch: any) => {
+    try {
+      dispatch({ type: "UPDATE_ORDER_STATUS_REQUEST" });
+      const res = await axios.put(
+        `${server}/order/update-order-status/${id}`,
+        { status },
+        { withCredentials: true }
+      );
+
+      dispatch({ type: "UPDATE_ORDER_STATUS_SUCCESS", payload: res.data });
+
+      toast.success("Order updated!");
+      navigate("/dashboard-orders");
+    } catch (error: any) {
+      dispatch({ type: "UPDATE_ORDER_STATUS_FAILURE", payload: error.message });
+      toast.error(error.response?.data?.message || "Failed to update order.");
+    }
+  };

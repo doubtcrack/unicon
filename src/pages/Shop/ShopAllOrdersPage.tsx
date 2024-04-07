@@ -2,7 +2,6 @@ import GenericTable from "@/components/genericTable";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getAllOrdersOfShop } from "@/redux/actions/order";
-import { getAllProductsShop } from "@/redux/actions/product";
 import { ArrowUpDown, Eye } from "lucide-react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,8 +13,9 @@ const ShopAllOrdersPage = () => {
   const { seller } = useSelector((state: any) => state.seller);
 
   useEffect(() => {
-    dispatch(getAllOrdersOfShop(seller?._id));
-    dispatch(getAllProductsShop(seller?._id));
+    if (seller) {
+      dispatch(getAllOrdersOfShop(seller?._id));
+    }
   }, [seller]);
 
   const data: any = [];
@@ -86,7 +86,7 @@ const ShopAllOrdersPage = () => {
       <GenericTable
         data={data}
         columns={columns}
-        tableWidth="sm:w-full md:w-[80vw]"
+        tableWidth="w-[90vw] md:w-[80vw]"
       />
     </div>
   );

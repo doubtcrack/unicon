@@ -19,7 +19,9 @@ export function ProductDetailsTab() {
 
   const [averageRating, totalReviewsLength] = useAvgRatingCalc();
   useEffect(() => {
-    dispatch(getAllProductsShop(data && data?.shop._id));
+    if (data) {
+      dispatch(getAllProductsShop(data && data?.shop._id));
+    }
   }, [data]);
   return (
     <Tabs defaultValue="review" className="flex justify-center">

@@ -22,7 +22,7 @@ const useProductFilter = () => {
     };
 
     filterProducts();
-  }, [allProducts, categoryData]);
+  }, [categoryData]);
 
   return filteredProducts;
 };

@@ -18,7 +18,7 @@ const useProductHandlers = (data: any) => {
     } else {
       setClick(false);
     }
-  }, [wishlist, data]);
+  }, [wishlist]);
 
   const removeFromWishlistHandler = () => {
     setClick(!click);

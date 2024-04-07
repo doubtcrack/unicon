@@ -155,6 +155,17 @@ export const userReducer = createReducer(initialState, (builder) => {
       state.usersLoading = false;
       state.error = action.payload;
     })
+    .addCase("UPDATE_ORDER_STATUS_REQUEST", (state) => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase("UPDATE_ORDER_STATUS_SUCCESS", (state) => {
+      state.loading = false;
+    })
+    .addCase("UPDATE_ORDER_STATUS_FAILURE", (state: any, action: any) => {
+      state.loading = false;
+      state.error = action.payload;
+    })
     .addCase("clearErrors", (state) => {
       state.error = null;
     })

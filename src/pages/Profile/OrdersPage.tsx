@@ -13,7 +13,9 @@ const OrdersPage = () => {
   const dispatch: any = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllOrdersOfUser(user?._id));
+    if (user) {
+      dispatch(getAllOrdersOfUser(user?._id));
+    }
   }, [user]);
 
   const data: any = [];

@@ -144,6 +144,7 @@ const ShopCreateProductPage = () => {
               value={tag}
               onChange={(e) => setTag(e.target.value)}
               onKeyDown={handleTagKeyPress}
+              onBlur={handleTagKeyPress}
               placeholder="Enter product related tags here..."
             />
             <div className="flex flex-wrap">

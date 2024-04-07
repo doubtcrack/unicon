@@ -39,8 +39,10 @@ const ShopOrderDetailsPage = () => {
     orderId: id,
   };
   useEffect(() => {
-    dispatch(getAllOrdersOfUser(user?._id));
-  }, [user, orders]);
+    if (user) {
+      dispatch(getAllOrdersOfUser(user?._id));
+    }
+  }, [orders]);
 
   const data = orders && orders.find((item: any) => item?._id === id);
   const items: any = [];
@@ -120,7 +122,11 @@ const ShopOrderDetailsPage = () => {
             Placed on: <span>{data?.createdAt?.slice(0, 10)}</span>
           </h5>
         </div>
-        <GenericTable data={items} columns={columns} tableWidth="w-[80vw]" />
+        <GenericTable
+          data={items}
+          columns={columns}
+          tableWidth="w-[90vw] md:w-[80vw]"
+        />
         <Separator className="my-8" />
         <div className="text-right">
           Total Price: <strong>{totalPrice}</strong> Rs.

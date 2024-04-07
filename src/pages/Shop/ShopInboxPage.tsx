@@ -41,21 +41,23 @@ const ShopInboxPage = () => {
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
-    const getConversation = async () => {
-      try {
-        const resonse = await axios.get(
-          `${server}/conversation/get-all-conversation-seller/${seller?._id}`,
-          {
-            withCredentials: true,
-          }
-        );
+    if (seller) {
+      const getConversation = async () => {
+        try {
+          const resonse = await axios.get(
+            `${server}/conversation/get-all-conversation-seller/${seller?._id}`,
+            {
+              withCredentials: true,
+            }
+          );
 
-        setConversations(resonse.data.conversations);
-      } catch (error) {
-        // console.log(error);
-      }
-    };
-    getConversation();
+          setConversations(resonse.data.conversations);
+        } catch (error) {
+          // console.log(error);
+        }
+      };
+      getConversation();
+    }
   }, [seller, messages]);
 
   useEffect(() => {
@@ -79,17 +81,19 @@ const ShopInboxPage = () => {
 
   // get messages
   useEffect(() => {
-    const getMessage = async () => {
-      try {
-        const response = await axios.get(
-          `${server}/message/get-all-messages/${currentChat?._id}`
-        );
-        setMessages(response.data.messages);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getMessage();
+    if (currentChat) {
+      const getMessage = async () => {
+        try {
+          const response = await axios.get(
+            `${server}/message/get-all-messages/${currentChat?._id}`
+          );
+          setMessages(response.data.messages);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getMessage();
+    }
   }, [currentChat]);
 
   // create new message

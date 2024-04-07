@@ -16,9 +16,11 @@ const ShopDashboardPage = () => {
   const { products } = useSelector((state: any) => state.products);
 
   useEffect(() => {
-    dispatch(getAllOrdersOfShop(seller?._id));
-    dispatch(getAllProductsShop(seller?._id));
-  }, [seller]);
+    if (seller) {
+      dispatch(getAllOrdersOfShop(seller?._id));
+      dispatch(getAllProductsShop(seller?._id));
+    }
+  }, []);
 
   const data: any = [];
 
@@ -114,7 +116,11 @@ const ShopDashboardPage = () => {
           </CardContent>
         </Card>
       </div>
-      <GenericTable data={data} columns={columns} tableWidth="w-[80vw]" />
+      <GenericTable
+        data={data}
+        columns={columns}
+        tableWidth="w-[90vw] md:w-[80vw]"
+      />
     </div>
   );
 };

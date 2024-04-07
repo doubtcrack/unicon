@@ -12,7 +12,9 @@ const ShopAllProductsPage = () => {
   const { seller } = useSelector((state: any) => state.seller);
 
   useEffect(() => {
-    dispatch(getAllProductsShop(seller?._id));
+    if (seller) {
+      dispatch(getAllProductsShop(seller?._id));
+    }
   }, [seller]);
 
   const handleDelete = (id: any) => {
@@ -104,7 +106,7 @@ const ShopAllProductsPage = () => {
       <GenericTable
         data={data}
         columns={columns}
-        tableWidth="sm:w-full md:w-[80vw]"
+        tableWidth="w-[90vw] md:w-[80vw]"
       />
     </div>
   );

@@ -11,7 +11,7 @@ const SuggestedProducts = ({ data }: any) => {
       allProducts &&
       allProducts.filter((i: any) => i?.category === data?.category);
     setProductData(d);
-  }, [allProducts, data?.category]);
+  }, [data?.category]);
 
   return (
     <section className=" flex justify-center">

@@ -166,7 +166,7 @@ function App() {
     Store.dispatch(loadUser());
     Store.dispatch(loadSeller());
     Store.dispatch(getAllProducts());
-  }, [loadUser, loadSeller, getAllProducts]);
+  }, []);
   return (
     <>
       <RouterProvider router={router} />

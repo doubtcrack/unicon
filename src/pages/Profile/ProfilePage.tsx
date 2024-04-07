@@ -7,9 +7,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const ProfilePage = () => {
-  const { user, error, successMessage } = useSelector(
-    (state: any) => state.user
-  );
+  const { user } = useSelector((state: any) => state.user);
   const dispatch: any = useDispatch();
 
   const [name, setName] = useState("");
@@ -25,15 +23,6 @@ const ProfilePage = () => {
       setPhoneNumber(user.phoneNumber);
     }
   }, [user]);
-
-  useEffect(() => {
-    if (error) {
-      dispatch({ type: "clearErrors" });
-    }
-    if (successMessage) {
-      dispatch({ type: "clearMessages" });
-    }
-  }, [error, successMessage, dispatch]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();

@@ -51,7 +51,7 @@ const ShopMobileNav = () => {
         <nav className="grid gap-1 p-2 lg:my-4">
           <div className="flex justify-start items-end my-4">
             <Link
-              to="/"
+              to="/shop/dashboard"
               className="flex items-center gap-2 text-lg font-semibold md:text-base"
             >
               <SVGIcons.logo />
@@ -59,7 +59,7 @@ const ShopMobileNav = () => {
               <span className="sr-only">UNICON</span>
             </Link>
             <Link
-              to="/"
+              to="/shop/dashboard"
               className="text-foreground px-2 font-bold transition-colors hover:text-foreground"
             >
               UNICON

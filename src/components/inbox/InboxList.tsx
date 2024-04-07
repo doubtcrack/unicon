@@ -38,7 +38,7 @@ const InboxList = ({
     };
 
     getUser();
-  }, [me, data]);
+  }, [me]);
 
   const handleItemClick = () => {
     setActive(index);

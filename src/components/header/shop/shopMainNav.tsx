@@ -6,7 +6,7 @@ const ShopNav = () => {
     <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
       <div className="flex justify-between items-end">
         <Link
-          to="/"
+          to="/shop/dashboard"
           className="flex items-center gap-2 text-lg font-semibold md:text-base"
         >
           <SVGIcons.logo />
@@ -14,7 +14,7 @@ const ShopNav = () => {
           <span className="sr-only">UNICON</span>
         </Link>
         <Link
-          to="/"
+          to="/shop/dashboard"
           className="text-foreground px-2 font-bold transition-colors hover:text-foreground"
         >
           UNICON

@@ -7,20 +7,13 @@ import {
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  CirclePlus,
-  LogOut,
-  MessagesSquare,
-  PackageSearch,
-  Settings2,
-  ShoppingBag,
-} from "lucide-react";
+import { LogOut, Settings2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { logoutAccount } from "@/redux/actions/user";
 import { useDispatch } from "react-redux";
-import { SVGIcons } from "@/components/svgIcons";
-const NavButton = ({ icon, label, link }: any) => (
-  <Link to={link}>
+import { ShopNavLinks, siteConfig } from "@/constants/site";
+const NavButton = ({ icon, label, link, index }: any) => (
+  <Link to={link} key={index}>
     <SheetClose>
       <div
         className={
@@ -28,6 +21,7 @@ const NavButton = ({ icon, label, link }: any) => (
           cn(buttonVariants({ variant: "ghost" }))
         }
         aria-label={label}
+        key={index}
       >
         {icon}
         <div className="flex pl-2 text-justify">{label}</div>
@@ -54,37 +48,26 @@ const ShopMobileNav = () => {
               to="/shop/dashboard"
               className="flex items-center gap-2 text-lg font-semibold md:text-base"
             >
-              <SVGIcons.logo />
+              {siteConfig.logo}
 
-              <span className="sr-only">UNICON</span>
+              <span className="sr-only">{siteConfig.name}</span>
             </Link>
             <Link
               to="/shop/dashboard"
               className="text-foreground px-2 font-bold transition-colors hover:text-foreground"
             >
-              UNICON
+              {siteConfig.name}
             </Link>
           </div>
-          <NavButton
-            icon={<ShoppingBag className="size-5" />}
-            label="All Orders"
-            link={"/shop/dashboard/orders"}
-          />
-          <NavButton
-            icon={<PackageSearch className="size-5" />}
-            label="All Products"
-            link={"/shop/dashboard/products"}
-          />
-          <NavButton
-            icon={<CirclePlus className="size-5" />}
-            label="Create Product"
-            link={"/shop/dashboard/create-product"}
-          />
-          <NavButton
-            icon={<MessagesSquare className="size-5" />}
-            label="Inbox"
-            link={"/shop/dashboard/inbox"}
-          />
+          {ShopNavLinks.map((i: any) => (
+            <NavButton
+              icon={i.icon}
+              label={i.label}
+              link={i.link}
+              index={i.id}
+              key={i.id}
+            />
+          ))}
         </nav>
         <nav className="mt-auto grid gap-1 p-2 sticky top-full">
           <NavButton

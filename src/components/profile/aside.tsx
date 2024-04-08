@@ -50,7 +50,6 @@ const Aside = () => {
             />
           </Link>
           <Link to="/dashboard/orders">
-            {" "}
             <NavButton
               icon={<ShoppingBag className="size-5" />}
               label="Orders"

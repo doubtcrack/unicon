@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { SVGIcons } from "../svgIcons";
+import { SiteNav, siteConfig } from "@/constants/site";
 
 const Nav = () => {
   return (
@@ -9,35 +9,26 @@ const Nav = () => {
           to="/"
           className="flex items-center gap-2 text-lg font-semibold md:text-base"
         >
-          <SVGIcons.logo />
+          {siteConfig.logo}
 
-          <span className="sr-only">UNICON</span>
+          <span className="sr-only">{siteConfig.name}</span>
         </Link>
         <Link
           to="/"
           className="text-foreground px-2 font-bold transition-colors hover:text-foreground"
         >
-          UNICON
+          {siteConfig.name}
         </Link>
       </div>
-      <Link
-        to="/dashboard/orders"
-        className="text-muted-foreground transition-colors hover:text-foreground"
-      >
-        Orders
-      </Link>
-      <Link
-        to="/products"
-        className="text-muted-foreground transition-colors hover:text-foreground"
-      >
-        Products
-      </Link>
-      <Link
-        to="/FAQ"
-        className="text-muted-foreground transition-colors hover:text-foreground"
-      >
-        FAQ
-      </Link>
+      {SiteNav.map((i: any) => (
+        <Link
+          to={i.link}
+          key={i.id}
+          className="text-muted-foreground transition-colors hover:text-foreground"
+        >
+          {i.label}
+        </Link>
+      ))}
     </nav>
   );
 };

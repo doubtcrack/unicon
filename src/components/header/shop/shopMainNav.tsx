@@ -1,4 +1,4 @@
-import { SVGIcons } from "@/components/svgIcons";
+import { siteConfig } from "@/constants/site";
 import { Link } from "react-router-dom";
 
 const ShopNav = () => {
@@ -9,15 +9,15 @@ const ShopNav = () => {
           to="/shop/dashboard"
           className="flex items-center gap-2 text-lg font-semibold md:text-base"
         >
-          <SVGIcons.logo />
+          {siteConfig.logo}
 
-          <span className="sr-only">UNICON</span>
+          <span className="sr-only">{siteConfig.name}</span>
         </Link>
         <Link
           to="/shop/dashboard"
           className="text-foreground px-2 font-bold transition-colors hover:text-foreground"
         >
-          UNICON
+          {siteConfig.name}
         </Link>
       </div>
     </nav>

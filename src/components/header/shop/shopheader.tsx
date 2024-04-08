@@ -1,17 +1,11 @@
 import { ModeToggle } from "@/components/mode-toggle";
 import ShopMobileNav from "./shopMobileNav";
 import ShopNav from "./shopMainNav";
-import {
-  CirclePlus,
-  LayoutDashboard,
-  MessagesSquare,
-  PackageSearch,
-  ShoppingBag,
-} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { ShopNavLinks } from "@/constants/site";
 export function ShopHeader() {
   const { seller } = useSelector((state: any) => state.seller);
   const [shopId, setShopId] = useState();
@@ -27,31 +21,11 @@ export function ShopHeader() {
       <ShopMobileNav />
       <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4 justify-end">
         <div className="hidden ml-auto md:flex text-muted-foreground justify-end">
-          <Link to={"/shop/dashboard"}>
-            <Button variant={"ghost"}>
-              <LayoutDashboard className="h-5 w-5 mx-1" />
-            </Button>
-          </Link>
-          <Link to={"/shop/dashboard/orders"}>
-            <Button variant={"ghost"}>
-              <ShoppingBag className="h-5 w-5 mx-1" />
-            </Button>
-          </Link>
-          <Link to={"/shop/dashboard/products"}>
-            <Button variant={"ghost"}>
-              <PackageSearch className="h-5 w-5 mx-1" />
-            </Button>
-          </Link>
-          <Link to={"/shop/dashboard/create-product"}>
-            <Button variant={"ghost"}>
-              <CirclePlus className="h-5 w-5 mx-1" />
-            </Button>
-          </Link>
-          <Link to={"/shop/dashboard/inbox"}>
-            <Button variant={"ghost"}>
-              <MessagesSquare className="h-5 w-5 mx-1" />
-            </Button>
-          </Link>
+          {ShopNavLinks.map((i: any) => (
+            <Link to={i.link} key={i.id}>
+              <Button variant={"ghost"}>{i.icon}</Button>
+            </Link>
+          ))}
         </div>
         <ModeToggle />
         <Link to={`/shop/preview/${shopId}`}>

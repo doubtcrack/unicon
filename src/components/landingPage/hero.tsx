@@ -19,7 +19,7 @@ const HeroSection = () => {
         {siteConfig.description}
       </PageHeaderDescription>
       <PageActions>
-        <Link to="/blog" className={cn(buttonVariants())}>
+        <Link to="/products" className={cn(buttonVariants())}>
           Get Started
         </Link>
         <Link

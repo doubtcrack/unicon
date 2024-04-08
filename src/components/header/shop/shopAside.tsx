@@ -1,13 +1,5 @@
 import { Button } from "@/components/ui/button";
-import {
-  CirclePlus,
-  LayoutDashboard,
-  LogOut,
-  MessagesSquare,
-  PackageSearch,
-  Settings2,
-  ShoppingBag,
-} from "lucide-react";
+import { LogOut, Settings2 } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -17,6 +9,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutAccount } from "@/redux/actions/user";
+import { ShopNavLinks } from "@/constants/site";
 
 const NavButton = ({ icon, label, tooltipLabel }: any) => (
   <Tooltip>
@@ -44,36 +37,11 @@ const ShopAside = () => {
     <aside className="hidden inset-y fixed left-0 z-20 md:flex h-[90vh] flex-col border-r">
       <TooltipProvider>
         <nav className="grid gap-1 p-2 lg:my-4">
-          <Link to={"/shop/dashboard"}>
-            <NavButton
-              icon={<LayoutDashboard className="size-5" />}
-              label="Dashboard"
-            />
-          </Link>
-          <Link to="/shop/dashboard/orders">
-            <NavButton
-              icon={<ShoppingBag className="size-5" />}
-              label="All Orders"
-            />
-          </Link>
-          <Link to="/shop/dashboard/products">
-            <NavButton
-              icon={<PackageSearch className="size-5" />}
-              label="All Products"
-            />
-          </Link>
-          <Link to="/shop/dashboard/create-product">
-            <NavButton
-              icon={<CirclePlus className="size-5" />}
-              label="Create Product"
-            />
-          </Link>
-          <Link to="/shop/dashboard/inbox">
-            <NavButton
-              icon={<MessagesSquare className="size-5" />}
-              label="Inbox"
-            />
-          </Link>
+          {ShopNavLinks.map((i: any) => (
+            <Link to={i.link} key={i.id}>
+              <NavButton icon={i.icon} label={i.label} />
+            </Link>
+          ))}
         </nav>
         <nav className="mt-auto grid gap-1 p-2">
           <Link to="/shop/dashboard/settings">

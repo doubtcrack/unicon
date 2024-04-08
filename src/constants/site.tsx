@@ -1,5 +1,17 @@
+import { SVGIcons } from "@/components/svgIcons";
+import {
+  CirclePlus,
+  Drama,
+  Home,
+  LayoutDashboard,
+  MessagesSquare,
+  PackageSearch,
+  ShoppingBag,
+} from "lucide-react";
+
 export const siteConfig = {
-  name: "uniconnect",
+  name: "UNICON",
+  logo: <SVGIcons.logo />,
   url: "http://localhost:3000",
   ogImage: "https://ui.shadcn.com/og.jpg",
   announcementTitle: "Contribute to Community",
@@ -56,6 +68,66 @@ export const Categories = [
     title: "Others",
     image_Url:
       "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiy8dPShr-XdhSGEqtKIhOYPHFo-9r4NW8R2NccpZ4KyQvSMOzA2bfrFhVW-he2FWt-Cb2jgJ15wRq13mPDf3as0c70sZXTDArgyW3nsISro7iVUCWYCO1TzmVjwLTPiRaatGKhx1SHire0INt0rFIEYuUuTJVo2zNV9tnm5rZyZmlRQ-icryL6Vy6peQ/s320/%5Bremoval.ai%5D_tmp-6479eaafaaf0b.png",
+  },
+];
+
+export const ShopNavLinks = [
+  {
+    id: "1",
+    label: "Dashboard",
+    icon: <LayoutDashboard className="size-5" />,
+    link: "/shop/dashboard",
+  },
+  {
+    id: "2",
+    label: "All Orders",
+    icon: <ShoppingBag className="size-5" />,
+    link: "/shop/dashboard/orders",
+  },
+  {
+    id: "3",
+    label: "All Products",
+    icon: <PackageSearch className="size-5" />,
+    link: "/shop/dashboard/products",
+  },
+  {
+    id: "4",
+    label: "Create Product",
+    icon: <CirclePlus className="size-5" />,
+    link: "/shop/dashboard/create-product",
+  },
+  {
+    id: "5",
+    label: "Inbox",
+    icon: <MessagesSquare className="size-5" />,
+    link: "/shop/dashboard/inbox",
+  },
+];
+
+export const SiteNav = [
+  {
+    id: "1",
+    label: "Home",
+    icon: <Home className="size-5" />,
+    link: "/",
+  },
+  {
+    id: "2",
+    label: "Orders",
+    icon: <ShoppingBag className="size-5" />,
+    link: "/dashboard/orders",
+  },
+  {
+    id: "3",
+    label: "Products",
+    icon: <PackageSearch className="size-5" />,
+    link: "/products",
+  },
+  {
+    id: "4",
+    label: "FAQs",
+    icon: <Drama className="size-5" />,
+    link: "/FAQ",
   },
 ];
 export type SiteConfig = typeof siteConfig;

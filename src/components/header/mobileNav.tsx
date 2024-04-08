@@ -1,9 +1,32 @@
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SVGIcons } from "../svgIcons";
+import { SiteNav, siteConfig } from "@/constants/site";
+import { cn } from "@/lib/utils";
 
+const NavButton = ({ icon, label, link, index }: any) => (
+  <Link to={link} key={index}>
+    <SheetClose>
+      <div
+        className={
+          "rounded-md hover:bg-muted lg:w-40 lg:justify-start lg:p-4 text-muted-foreground my-1 flex items-center" +
+          cn(buttonVariants({ variant: "ghost" }))
+        }
+        aria-label={label}
+        key={index}
+      >
+        {icon}
+        <div className="flex pl-2 text-justify justify-end">{label}</div>
+      </div>
+    </SheetClose>
+  </Link>
+);
 const MobileNav = () => {
   return (
     <Sheet>
@@ -20,35 +43,27 @@ const MobileNav = () => {
               to="/"
               className="flex items-center gap-2 text-lg font-semibold md:text-base"
             >
-              <SVGIcons.logo />
+              {siteConfig.logo}
 
-              <span className="sr-only">UNICON</span>
+              <span className="sr-only">{siteConfig.name}</span>
             </Link>
             <Link
               to="/"
               className="text-foreground px-2 font-bold transition-colors hover:text-foreground"
             >
-              UNICON
+              {siteConfig.name}
             </Link>
           </div>
-          <Link
-            to="/dashboard/orders"
-            className="text-muted-foreground hover:text-foreground"
-          >
-            Orders
-          </Link>
-          <Link
-            to="/products"
-            className="text-muted-foreground hover:text-foreground"
-          >
-            Products
-          </Link>
-          <Link
-            to="/FAQ"
-            className="text-muted-foreground hover:text-foreground"
-          >
-            FAQ
-          </Link>
+
+          {SiteNav.map((i: any) => (
+            <NavButton
+              icon={i.icon}
+              label={i.label}
+              link={i.link}
+              index={i.id}
+              key={i.id}
+            />
+          ))}
         </nav>
       </SheetContent>
     </Sheet>

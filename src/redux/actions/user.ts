@@ -30,7 +30,7 @@ export const createAccount =
 
       dispatch({
         type: "CreateAccountSuccess",
-        payload: response.data,
+        payload: response?.data,
       });
 
       toast.success(response?.data.message);
@@ -90,7 +90,7 @@ export const logoutAccount =
     } catch (error: any) {
       dispatch({
         type: "LogoutUserFail",
-        payload: error.response.data?.message,
+        payload: error.response?.data?.message,
       });
     }
   };
@@ -133,7 +133,7 @@ export const loadSeller = () => async (dispatch: any) => {
   } catch (error: any) {
     dispatch({
       type: "LoadSellerFail",
-      payload: error.response.data?.message,
+      payload: error.response?.data?.message,
     });
   }
 };
@@ -162,7 +162,7 @@ export const updateAvatar =
     } catch (error: any) {
       dispatch({
         type: "updateAvatarFailed",
-        payload: error.response.data?.message,
+        payload: error.response?.data?.message,
       });
       toast.error("Try Again!");
     }
@@ -201,7 +201,7 @@ export const updateUserInformation =
     } catch (error: any) {
       dispatch({
         type: "updateUserInfoFailed",
-        payload: error.response.data?.message,
+        payload: error.response?.data?.message,
       });
     }
   };
@@ -270,7 +270,7 @@ export const updatUserAddress =
     } catch (error: any) {
       dispatch({
         type: "updateUserAddressFailed",
-        payload: error.response.data?.message,
+        payload: error.response?.data?.message,
       });
     }
   };
@@ -310,7 +310,7 @@ export const updateShopInfo =
     } catch (error: any) {
       dispatch({
         type: "updateShopInfoFailed",
-        payload: error.response.data?.message,
+        payload: error.response?.data?.message,
       });
       toast.error("Failed to update shop info. Please try again.");
     }
@@ -338,7 +338,7 @@ export const deleteUserAddress = (id: any) => async (dispatch: any) => {
   } catch (error: any) {
     dispatch({
       type: "deleteUserAddressFailed",
-      payload: error.response.data?.message,
+      payload: error.response?.data?.message,
     });
   }
 };
@@ -361,7 +361,7 @@ export const getAllUsers = () => async (dispatch: any) => {
   } catch (error: any) {
     dispatch({
       type: "getAllUsersFailed",
-      payload: error.response.data?.message,
+      payload: error.response?.data?.message,
     });
   }
 };
@@ -377,7 +377,7 @@ export const updateOrderStatus =
         { withCredentials: true }
       );
 
-      dispatch({ type: "UPDATE_ORDER_STATUS_SUCCESS", payload: res.data });
+      dispatch({ type: "UPDATE_ORDER_STATUS_SUCCESS", payload: res?.data });
 
       toast.success("Order updated!");
       navigate("/shop/dashboard/orders");

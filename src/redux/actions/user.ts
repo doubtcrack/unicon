@@ -62,8 +62,12 @@ export const loginAccount =
         type: "LoginAccountSuccess",
       });
       const redirectPath = sessionStorage.getItem("redirectPath");
-      sessionStorage.removeItem("redirectPath");
       navigate(redirectPath || afterpath);
+      sessionStorage.removeItem("redirectPath");
+      path.includes("shop")
+        ? localStorage.setItem("seller", "valid")
+        : localStorage.setItem("user", "valid");
+
       toast.success("Logged in!");
     } catch (error: any) {
       dispatch({
@@ -88,6 +92,9 @@ export const logoutAccount =
         type: "LogoutAccountSuccess",
         payload: data?.message,
       });
+      path.includes("shop")
+        ? localStorage.removeItem("seller")
+        : localStorage.removeItem("user");
       navigate("/signin");
     } catch (error: any) {
       dispatch({

@@ -7,7 +7,11 @@ const SignInPage = () => {
   const { isAuthenticated } = useSelector((state: any) => state.user);
   const { isSeller } = useSelector((state: any) => state.seller);
 
-  if (isAuthenticated === true && isSeller === true) {
+  if (
+    isAuthenticated === true &&
+    isSeller === true &&
+    sessionStorage.getItem("redirectPath")
+  ) {
     navigate("/");
   }
   return (

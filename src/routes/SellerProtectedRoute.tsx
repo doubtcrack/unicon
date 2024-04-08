@@ -5,7 +5,7 @@ const SellerProtectedRoute = ({ children }: any) => {
   const { isLoading, isSeller } = useSelector((state: any) => state.seller);
   const location = useLocation();
   if (isLoading === false) {
-    if (!isSeller) {
+    if (!isSeller && localStorage.getItem("seller") != "valid") {
       sessionStorage.setItem("redirectPath", location.pathname);
       return <Navigate to={`/signin`} replace />;
     }

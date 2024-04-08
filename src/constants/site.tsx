@@ -134,51 +134,51 @@ export const SiteNav = [
 export const Faqs = [
   {
     id: "1",
-    title: "What is UniConnect?",
+    title: "What is unicon?",
     content:
-      "UniConnect is a web platform designed to simplify the process of buying, selling, or trading used textbooks, stationery, and other study materials among university students.",
+      "unicon is a web platform designed to simplify the process of buying, selling, or trading used textbooks, stationery, and other study materials among university students.",
   },
   {
     id: "2",
-    title: "Why was UniConnect created?",
+    title: "Why was unicon created?",
     content:
-      "UniConnect was created to address the financial burden of education, especially the high costs associated with textbooks. It aims to empower students by providing a platform for affordable exchange of study materials, thereby helping them access the resources they need without compromising their financial stability.",
+      "unicon was created to address the financial burden of education, especially the high costs associated with textbooks. It aims to empower students by providing a platform for affordable exchange of study materials, thereby helping them access the resources they need without compromising their financial stability.",
   },
   {
     id: "3",
-    title: "How does UniConnect contribute to environmental sustainability?",
+    title: "How does unicon contribute to environmental sustainability?",
     content:
-      "UniConnect promotes environmental sustainability by encouraging the reuse of materials. By facilitating the exchange of used textbooks and study materials among students, UniConnect reduces waste and contributes to a more sustainable campus ecosystem.",
+      "unicon promotes environmental sustainability by encouraging the reuse of materials. By facilitating the exchange of used textbooks and study materials among students, unicon reduces waste and contributes to a more sustainable campus ecosystem.",
   },
   {
     id: "4",
-    title: "What are the key features of UniConnect?",
+    title: "What are the key features of unicon?",
     content:
-      "UniConnect offers features such as buying, selling, and exchanging study materials, connecting with peers, user authentication and authorization, real-time chat, stunning UI designs, efficient state management, lazy loaded components, personalized profiles, search and filter functionality, responsive design, intuitive navigation, product image hosting, user feedback and ratings, accessibility features, toast notifications, and functional reusable components.",
+      "unicon offers features such as buying, selling, and exchanging study materials, connecting with peers, user authentication and authorization, real-time chat, stunning UI designs, efficient state management, lazy loaded components, personalized profiles, search and filter functionality, responsive design, intuitive navigation, product image hosting, user feedback and ratings, accessibility features, toast notifications, and functional reusable components.",
   },
   {
     id: "5",
-    title: "How can I buy, sell, or exchange study materials on UniConnect?",
+    title: "How can I buy, sell, or exchange study materials on unicon?",
     content:
-      "To buy, sell, or exchange study materials on UniConnect, simply create an account, browse listings, and interact with other users to initiate transactions. You can list your items for sale or exchange, communicate with potential buyers or sellers through real-time chat, and complete transactions securely through the platform.",
+      "To buy, sell, or exchange study materials on unicon, simply create an account, browse listings, and interact with other users to initiate transactions. You can list your items for sale or exchange, communicate with potential buyers or sellers through real-time chat, and complete transactions securely through the platform.",
   },
   {
     id: "6",
-    title: "Is UniConnect accessible on mobile devices?",
+    title: "Is unicon accessible on mobile devices?",
     content:
-      "Yes, UniConnect is designed with responsive design principles to ensure accessibility on various devices, including mobile phones and tablets. You can access UniConnect from any device with an internet connection and a web browser.",
+      "Yes, unicon is designed with responsive design principles to ensure accessibility on various devices, including mobile phones and tablets. You can access unicon from any device with an internet connection and a web browser.",
   },
   {
     id: "7",
-    title: "How do I provide feedback or report issues on UniConnect?",
+    title: "How do I provide feedback or report issues on unicon?",
     content:
-      "You can provide feedback or report issues on UniConnect by accessing the support or contact section of the platform. Here, you can submit your feedback, report any technical issues or bugs you encounter, and communicate with the UniConnect team for assistance.",
+      "You can provide feedback or report issues on unicon by accessing the support or contact section of the platform. Here, you can submit your feedback, report any technical issues or bugs you encounter, and communicate with the unicon team for assistance.",
   },
   {
     id: "8",
-    title: "Is UniConnect free to use?",
+    title: "Is unicon free to use?",
     content:
-      "Yes, UniConnect is free to use for all registered users. There are no subscription fees or hidden charges associated with accessing the platform's core features. However, certain premium features or services may require additional fees, which will be clearly communicated to users",
+      "Yes, unicon is free to use for all registered users. There are no subscription fees or hidden charges associated with accessing the platform's core features. However, certain premium features or services may require additional fees, which will be clearly communicated to users",
   },
 ];
 export type SiteConfig = typeof siteConfig;

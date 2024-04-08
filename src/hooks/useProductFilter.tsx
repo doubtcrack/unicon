@@ -5,7 +5,9 @@ import { useSelector } from "react-redux";
 const useProductFilter = () => {
   const [searchParams] = useSearchParams();
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const { allProducts } = useSelector((state: any) => state.products);
+  const { allProducts, isLoading } = useSelector(
+    (state: any) => state.products
+  );
   const categoryData = searchParams.get("category");
 
   useEffect(() => {
@@ -24,7 +26,7 @@ const useProductFilter = () => {
     filterProducts();
   }, [categoryData, allProducts]);
 
-  return filteredProducts;
+  return { filteredProducts, isLoading };
 };
 
 export default useProductFilter;

@@ -4,9 +4,10 @@ import { HowItWorks } from "@/components/landingPage/howItWorks";
 import { ProductCard } from "@/components/cards/productCard";
 import { PackageOpen } from "lucide-react";
 import useProductFilter from "@/hooks/useProductFilter";
+import ProductCardSkeleton from "@/components/skeleton/productCardSkeleton";
 
 const LandingPage = () => {
-  const data = useProductFilter();
+  const { filteredProducts, isLoading } = useProductFilter();
 
   return (
     <>
@@ -20,12 +21,18 @@ const LandingPage = () => {
         </span>
       </h2>
       <section className="grid md:mx-12 my-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {data &&
-          data.map((i, index) => (
-            <ProductCard data={i} index={index} key={index} />
-          ))}
+        {isLoading ? (
+          <ProductCardSkeleton />
+        ) : (
+          <>
+            {filteredProducts &&
+              filteredProducts.map((i, index) => (
+                <ProductCard data={i} index={index} key={index} />
+              ))}
+          </>
+        )}
       </section>
-      {data && data.length === 0 ? (
+      {filteredProducts && !isLoading && filteredProducts.length === 0 ? (
         <div className="flex justify-center items-center flex-col h-[75vh]">
           <PackageOpen className="h-10 w-10 " />
           <h1 className="text-center pb-[100px] text-[20px]">

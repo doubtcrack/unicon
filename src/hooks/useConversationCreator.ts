@@ -11,13 +11,13 @@ const useConversationCreator = () => {
     (state: any) => state.user
   );
   const { conversationId }: any = useSelector((state: any) => state.chat);
-  const data: any = useProductFilter();
+  const { filteredProducts, isLoading }: any = useProductFilter();
 
   const handleMessageSubmit = async () => {
-    if (isAuthenticated) {
-      const groupTitle = data?._id + user?._id;
+    if (isAuthenticated && !isLoading) {
+      const groupTitle = filteredProducts?._id + user?._id;
       const userId = user?._id;
-      const sellerId = data.shop?._id;
+      const sellerId = filteredProducts.shop?._id;
       await dispatch(createConversation(groupTitle, userId, sellerId));
       navigate(`/inbox?${conversationId}`);
     } else {

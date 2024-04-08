@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { ProductCard } from "./productCard";
+import ProductCardSkeleton from "../skeleton/productCardSkeleton";
 
-const SuggestedProducts = ({ data }: any) => {
+const SuggestedProducts = ({ data, isLoading }: any) => {
   const { allProducts } = useSelector((state: any) => state.products);
   const [productData, setProductData]: any = useState();
 
   useEffect(() => {
-    const d =
-      allProducts &&
-      allProducts.filter((i: any) => i?.category === data?.category);
-    setProductData(d);
+    if (!isLoading) {
+      const d =
+        allProducts &&
+        allProducts.filter((i: any) => i?.category === data?.category);
+      setProductData(d);
+    }
   }, [data?.category]);
 
   return (
@@ -25,10 +28,16 @@ const SuggestedProducts = ({ data }: any) => {
           </h2>
         )}
         <div className="grid md:mx-12 my-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {productData &&
-            productData?.map((i: any, index: any) => (
-              <ProductCard data={i} index={index} key={index} />
-            ))}
+          {isLoading ? (
+            <ProductCardSkeleton />
+          ) : (
+            <>
+              {productData &&
+                productData?.map((i: any, index: any) => (
+                  <ProductCard data={i} index={index} key={index} />
+                ))}
+            </>
+          )}
         </div>
       </div>
     </section>

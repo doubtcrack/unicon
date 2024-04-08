@@ -32,6 +32,8 @@ import ShopInboxPage from "./pages/Shop/ShopInboxPage";
 import ShopOrderDetailsPage from "./pages/Shop/ShopOrderDetailsPage";
 import ShopPreviewPage from "./pages/ShopPreviewPage";
 import FAQPage from "./pages/FAQPage";
+import UserProtectedRoute from "./routes/UserProtectedRoute";
+import SellerProtectedRoute from "./routes/SellerProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -70,11 +72,19 @@ const router = createBrowserRouter([
       },
       {
         path: "checkout",
-        element: <CheckoutPage />,
+        element: (
+          <UserProtectedRoute>
+            <CheckoutPage />
+          </UserProtectedRoute>
+        ),
       },
       {
         path: "user/order/:id",
-        element: <OrderDetailsPage />,
+        element: (
+          <UserProtectedRoute>
+            <OrderDetailsPage />
+          </UserProtectedRoute>
+        ),
       },
       {
         path: "activation/:activation_token",
@@ -98,9 +108,11 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: (
       <>
-        <ProfileLayout>
-          <Outlet />
-        </ProfileLayout>
+        <UserProtectedRoute>
+          <ProfileLayout>
+            <Outlet />
+          </ProfileLayout>
+        </UserProtectedRoute>
       </>
     ),
     children: [
@@ -134,9 +146,11 @@ const router = createBrowserRouter([
     path: "/shop/dashboard",
     element: (
       <>
-        <ShopLayout>
-          <Outlet />
-        </ShopLayout>
+        <SellerProtectedRoute>
+          <ShopLayout>
+            <Outlet />
+          </ShopLayout>
+        </SellerProtectedRoute>
       </>
     ),
     children: [

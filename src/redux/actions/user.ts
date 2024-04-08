@@ -61,7 +61,9 @@ export const loginAccount =
       dispatch({
         type: "LoginAccountSuccess",
       });
-      navigate(afterpath);
+      const redirectPath = sessionStorage.getItem("redirectPath");
+      sessionStorage.removeItem("redirectPath");
+      navigate(redirectPath || afterpath);
       toast.success("Logged in!");
     } catch (error: any) {
       dispatch({

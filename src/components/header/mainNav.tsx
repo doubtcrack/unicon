@@ -21,28 +21,22 @@ const Nav = () => {
         </Link>
       </div>
       <Link
-        to="/"
+        to="/dashboard/orders"
         className="text-muted-foreground transition-colors hover:text-foreground"
       >
         Orders
       </Link>
       <Link
-        to="/product"
+        to="/products"
         className="text-muted-foreground transition-colors hover:text-foreground"
       >
         Products
       </Link>
       <Link
-        to="/"
+        to="/FAQ"
         className="text-muted-foreground transition-colors hover:text-foreground"
       >
-        Customers
-      </Link>
-      <Link
-        to="/"
-        className="text-muted-foreground transition-colors hover:text-foreground"
-      >
-        Analytics
+        FAQ
       </Link>
     </nav>
   );

@@ -20,7 +20,7 @@ const ShopDashboardPage = () => {
       dispatch(getAllOrdersOfShop(seller?._id));
       dispatch(getAllProductsShop(seller?._id));
     }
-  }, []);
+  }, [seller]);
 
   const data: any = [];
 

@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-export function ProductCard({ data }: any) {
+export function ProductCard({ data, index }: any) {
   const {
     click,
     removeFromWishlistHandler,
@@ -18,7 +18,7 @@ export function ProductCard({ data }: any) {
   } = useProductHandlers(data);
 
   return (
-    <Card className="">
+    <Card className="" key={index}>
       <div className="p-4">
         <Link to={`/product/${data._id}`}>
           <img

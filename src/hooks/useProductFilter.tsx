@@ -14,7 +14,7 @@ const useProductFilter = () => {
         setFilteredProducts(allProducts);
       } else {
         setFilteredProducts(
-          allProducts.filter(
+          allProducts?.filter(
             (product: any) => product.category === categoryData
           )
         );
@@ -22,7 +22,7 @@ const useProductFilter = () => {
     };
 
     filterProducts();
-  }, [categoryData]);
+  }, [categoryData, allProducts]);
 
   return filteredProducts;
 };

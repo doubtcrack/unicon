@@ -30,6 +30,8 @@ import ShopCreateProductPage from "./pages/Shop/ShopCreateProductPage";
 import ShopSettingsPage from "./pages/Shop/ShopSettingsPage";
 import ShopInboxPage from "./pages/Shop/ShopInboxPage";
 import ShopOrderDetailsPage from "./pages/Shop/ShopOrderDetailsPage";
+import ShopPreviewPage from "./pages/ShopPreviewPage";
+import FAQPage from "./pages/FAQPage";
 
 const router = createBrowserRouter([
   {
@@ -55,7 +57,11 @@ const router = createBrowserRouter([
         element: <LandingPage />,
       },
       {
-        path: "product",
+        path: "FAQ",
+        element: <FAQPage />,
+      },
+      {
+        path: "products",
         element: <ProductPage />,
       },
       {
@@ -77,6 +83,10 @@ const router = createBrowserRouter([
       {
         path: "seller/activation/:activation_token",
         element: <ActivationPage />,
+      },
+      {
+        path: "shop/preview/:shopId",
+        element: <ShopPreviewPage />,
       },
       {
         path: "*",

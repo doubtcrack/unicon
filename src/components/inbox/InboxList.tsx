@@ -30,8 +30,12 @@ const InboxList = ({
 
     const getUser = async () => {
       try {
-        const res = await axios.get(`${server}/${path}/${userId}`);
-        path.includes("user") ? setUser(res.data.user) : setUser(res.data.shop);
+        if (userId) {
+          const res = await axios.get(`${server}/${path}/${userId}`);
+          path.includes("user")
+            ? setUser(res.data.user)
+            : setUser(res.data.shop);
+        }
       } catch (error) {
         console.log(error);
       }

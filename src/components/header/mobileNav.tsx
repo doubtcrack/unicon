@@ -31,17 +31,23 @@ const MobileNav = () => {
               UNICON
             </Link>
           </div>
-          <Link to="/" className="text-muted-foreground hover:text-foreground">
+          <Link
+            to="/dashboard/orders"
+            className="text-muted-foreground hover:text-foreground"
+          >
             Orders
           </Link>
-          <Link to="/" className="text-muted-foreground hover:text-foreground">
+          <Link
+            to="/products"
+            className="text-muted-foreground hover:text-foreground"
+          >
             Products
           </Link>
-          <Link to="/" className="text-muted-foreground hover:text-foreground">
-            Customers
-          </Link>
-          <Link to="/" className="text-muted-foreground hover:text-foreground">
-            Analytics
+          <Link
+            to="/FAQ"
+            className="text-muted-foreground hover:text-foreground"
+          >
+            FAQ
           </Link>
         </nav>
       </SheetContent>

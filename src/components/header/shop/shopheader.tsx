@@ -11,8 +11,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 export function ShopHeader() {
   const { seller } = useSelector((state: any) => state.seller);
+  const [shopId, setShopId] = useState();
+  useEffect(() => {
+    if (seller) {
+      setShopId(seller._id);
+    }
+  }, [seller]);
 
   return (
     <header className="sticky top-0 z-50 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -47,11 +54,13 @@ export function ShopHeader() {
           </Link>
         </div>
         <ModeToggle />
-        <img
-          src={`${seller?.avatar}`}
-          alt="seller avatar"
-          className="h-8 w-8 rounded-full p-1 border border-border"
-        />
+        <Link to={`/shop/preview/${shopId}`}>
+          <img
+            src={`${seller?.avatar}`}
+            alt="seller avatar"
+            className="h-8 w-8 rounded-full p-1 border border-border"
+          />
+        </Link>
       </div>
     </header>
   );

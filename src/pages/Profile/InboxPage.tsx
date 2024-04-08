@@ -44,19 +44,21 @@ const InboxPage = () => {
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
-    const getConversations = async () => {
-      try {
-        const response = await axios.get(
-          `${server}/conversation/get-all-conversation-user/${user?._id}`,
-          { withCredentials: true }
-        );
-        setConversations(response.data.conversations);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getConversations();
-  }, [user, messages]);
+    if (user) {
+      const getConversations = async () => {
+        try {
+          const response = await axios.get(
+            `${server}/conversation/get-all-conversation-user/${user?._id}`,
+            { withCredentials: true }
+          );
+          setConversations(response.data.conversations);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getConversations();
+    }
+  }, [user]);
 
   useEffect(() => {
     if (user) {

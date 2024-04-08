@@ -20,7 +20,7 @@ const LandingPage = () => {
         </span>
       </h2>
       <section className="grid md:mx-12 my-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {data && data.map((i, index) => <ProductCard data={i} key={index} />)}
+        {data && data.map((i, index) => <ProductCard data={i} index={index} />)}
       </section>
       {data && data.length === 0 ? (
         <div className="flex justify-center items-center flex-col h-[75vh]">

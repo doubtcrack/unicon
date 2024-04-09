@@ -12,9 +12,10 @@ import { createAccount } from "@/redux/actions/user";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import { CircleUser } from "lucide-react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import Loader from "../skeleton/loader/loader";
 
 export function SignUpForm() {
   return (
@@ -42,7 +43,8 @@ const SignUpCard = ({ path, afterpath }: any) => {
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
   const [avatar, setAvatar] = useState(null);
-
+  const { loading } = useSelector((state: any) => state.user);
+  const { isLoading } = useSelector((state: any) => state.seller);
   const handleFileInputChange = (e: any) => {
     const file = e.target.files[0];
     setAvatar(file);
@@ -146,13 +148,19 @@ const SignUpCard = ({ path, afterpath }: any) => {
               </div>
             </div>
           </div>
-          <Button
-            type="submit"
-            className="w-full"
-            onClick={() => handleCreateAccount()}
-          >
-            Create an account
-          </Button>
+          {isLoading || loading ? (
+            <Button className="w-full !bg-secondary">
+              Creating your Account <Loader />
+            </Button>
+          ) : (
+            <Button
+              type="submit"
+              className="w-full"
+              onClick={() => handleCreateAccount()}
+            >
+              Create an account
+            </Button>
+          )}
         </div>
         <div className="mt-4 text-center text-sm">
           Already have an account?{" "}

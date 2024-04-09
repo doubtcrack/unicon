@@ -11,9 +11,10 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginAccount } from "@/redux/actions/user";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import Loader from "../skeleton/loader/loader";
 
 export function SignInForm() {
   return (
@@ -41,6 +42,8 @@ const SignInCard = ({ path, afterpath }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
+  const { loading } = useSelector((state: any) => state.user);
+  const { isLoading } = useSelector((state: any) => state.seller);
 
   return (
     <Card>
@@ -94,15 +97,23 @@ const SignInCard = ({ path, afterpath }: any) => {
               )}
             </div>
           </div>
-          <Button
-            type="submit"
-            className="w-full"
-            onClick={() =>
-              dispatch(loginAccount(email, password, navigate, path, afterpath))
-            }
-          >
-            Login
-          </Button>
+          {isLoading || loading ? (
+            <Button className="w-full !bg-secondary">
+              Logging in <Loader />
+            </Button>
+          ) : (
+            <Button
+              type="submit"
+              className="w-full"
+              onClick={() =>
+                dispatch(
+                  loginAccount(email, password, navigate, path, afterpath)
+                )
+              }
+            >
+              Login
+            </Button>
+          )}
         </div>
         <div className="mt-4 text-center text-sm">
           Don't have an account?{" "}

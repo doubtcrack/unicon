@@ -19,7 +19,7 @@ const useConversationCreator = () => {
       const userId = user?._id;
       const sellerId = filteredProducts.shop?._id;
       await dispatch(createConversation(groupTitle, userId, sellerId));
-      navigate(`/inbox?${conversationId}`);
+      navigate(`/dashboard/inbox?${conversationId}`);
     } else {
       toast.error("Please login to create a conversation");
     }

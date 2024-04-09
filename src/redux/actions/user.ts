@@ -49,9 +49,10 @@ export const createAccount =
 export const loginAccount =
   (email: string, password: string, navigate: any, path: any, afterpath: any) =>
   async (dispatch: any) => {
+    const access = path.includes("shop") ? "LoadSeller" : "LoginAccount";
     try {
       dispatch({
-        type: "LoginAccountRequest",
+        type: `${access}Request`,
       });
       await axios.post(
         `${server}/${path}`,
@@ -59,7 +60,7 @@ export const loginAccount =
         { withCredentials: true }
       );
       dispatch({
-        type: "LoginAccountSuccess",
+        type: `${access}Success`,
       });
       const redirectPath = sessionStorage.getItem("redirectPath");
       navigate(redirectPath || afterpath);
@@ -71,7 +72,7 @@ export const loginAccount =
       toast.success("Logged in!");
     } catch (error: any) {
       dispatch({
-        type: "LoginAccountFail",
+        type: `${access}Fail`,
         payload: "Invalid email or password",
       });
       toast.error("mismatched user and pass");
@@ -81,15 +82,16 @@ export const loginAccount =
 // Logout account
 export const logoutAccount =
   (navigate: any, path: any) => async (dispatch: any) => {
+    const access = path.includes("shop") ? "LogoutSeller" : "LogoutAccount";
     try {
       dispatch({
-        type: "LogoutAccountRequest",
+        type: `${access}Request`,
       });
       const { data } = await axios.get(`${server}/${path}/logout`, {
         withCredentials: true,
       });
       dispatch({
-        type: "LogoutAccountSuccess",
+        type: `${access}Success`,
         payload: data?.message,
       });
       path.includes("shop")
@@ -98,7 +100,7 @@ export const logoutAccount =
       navigate("/signin");
     } catch (error: any) {
       dispatch({
-        type: "LogoutUserFail",
+        type: `${access}Fail`,
         payload: error.response?.data?.message,
       });
     }

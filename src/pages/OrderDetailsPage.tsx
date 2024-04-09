@@ -19,9 +19,10 @@ import {
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import Loader from "@/components/skeleton/loader/loader";
 
 const OrderDetailsPage = () => {
-  const { orders } = useSelector((state: any) => state.order);
+  const { orders, isLoading } = useSelector((state: any) => state.order);
   const { user } = useSelector((state: any) => state.user);
   const dispatch: any = useDispatch();
   const [comment, setComment] = useState("");
@@ -48,7 +49,7 @@ const OrderDetailsPage = () => {
   const items: any = [];
   data &&
     data?.cart.map((item: any) => {
-      totalPrice = totalPrice + item.discountPrice*item.qty;
+      totalPrice = totalPrice + item.discountPrice * item.qty;
       items.push({
         img: item.images[0],
         title: item.name,
@@ -181,9 +182,15 @@ const OrderDetailsPage = () => {
           />
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={() => reviewHandler()}>
-            Submit
-          </Button>
+          {isLoading ? (
+            <Button className="!bg-secondary">
+              Submitting Review <Loader />
+            </Button>
+          ) : (
+            <Button type="submit" onClick={() => reviewHandler()}>
+              Submit
+            </Button>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>

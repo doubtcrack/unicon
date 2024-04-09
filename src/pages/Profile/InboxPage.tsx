@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import InboxList from "@/components/inbox/InboxList";
 import Inbox from "@/components/inbox/Inbox";
 import { Card } from "@/components/ui/card";
+import { useLocation } from "react-router-dom";
 
 const ENDPOINT = socket_server;
 const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
@@ -24,6 +25,30 @@ const InboxPage = () => {
   const [open, setOpen] = useState<boolean>(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const cId = queryParams.get("cId");
+  const sId = queryParams.get("sId");
+
+  useEffect(() => {
+    if (sId && cId) setOpen(true);
+  }, [sId, cId]);
+  console.log(activeStatus);
+  useEffect(() => {
+    if (sId) {
+      setActiveStatus(!!sId);
+      const getUser = async () => {
+        try {
+          const res = await axios.get(`${server}/shop/get-shop-info/${sId}`);
+          setUserData(res.data.shop);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      getUser();
+    }
+  }, [user]);
   useEffect(() => {
     socketId.on("getMessage", (data) => {
       setArrivalMessage({
@@ -37,7 +62,7 @@ const InboxPage = () => {
   useEffect(() => {
     if (
       arrivalMessage &&
-      currentChat?.members.includes(arrivalMessage.sender)
+      currentChat?.members.includes(arrivalMessage?.sender)
     ) {
       setMessages((prevMessages) => [...prevMessages, arrivalMessage]);
     }
@@ -73,9 +98,9 @@ const InboxPage = () => {
   useEffect(() => {
     const getMessage = async () => {
       try {
-        if (currentChat) {
+        if (cId || currentChat) {
           const response = await axios.get(
-            `${server}/message/get-all-messages/${currentChat._id}`
+            `${server}/message/get-all-messages/${cId || currentChat._id}`
           );
           setMessages(response.data.messages);
         }
@@ -84,7 +109,7 @@ const InboxPage = () => {
       }
     };
     getMessage();
-  }, [currentChat]);
+  }, [cId, currentChat]);
 
   const sendMessageHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -92,7 +117,7 @@ const InboxPage = () => {
     const message = {
       sender: user._id,
       text: newMessage,
-      conversationId: currentChat?._id,
+      conversationId: cId || currentChat?._id,
     };
     const receiverId = currentChat?.members.find(
       (member: any) => member !== user._id
@@ -125,7 +150,7 @@ const InboxPage = () => {
     });
 
     try {
-      if (currentChat) {
+      if (currentChat || cId) {
         await axios.put(
           `${server}/conversation/update-last-message/${currentChat._id}`,
           {
@@ -154,7 +179,7 @@ const InboxPage = () => {
     formData.append("images", file);
     formData.append("sender", user._id);
     formData.append("text", newMessage);
-    formData.append("conversationId", currentChat?._id);
+    formData.append("conversationId", cId || currentChat?._id);
 
     const receiverId = currentChat?.members.find(
       (member: any) => member !== user._id
@@ -230,6 +255,7 @@ const InboxPage = () => {
               setActiveStatus={setActiveStatus}
               navigationPath={"/dashboard/inbox"}
               path={"shop/get-shop-info"}
+              sId={sId}
             />
           ))}
         </Card>

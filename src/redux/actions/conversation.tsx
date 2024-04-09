@@ -6,6 +6,7 @@ export const createConversation =
   (groupTitle: string, userId: string, sellerId: string) =>
   async (dispatch: any) => {
     try {
+      dispatch({ type: "CREATE_CONVERSATION_REQUEST" });
       const res = await axios.post(
         `${server}/conversation/create-new-conversation`,
         {

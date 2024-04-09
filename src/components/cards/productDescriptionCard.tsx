@@ -21,6 +21,8 @@ import useProductHandlers, {
 } from "@/hooks/useProductHandler";
 import useConversationCreator from "@/hooks/useConversationCreator";
 import { Skeleton } from "../ui/skeleton";
+import Loader from "../skeleton/loader/loader";
+import { useEffect } from "react";
 
 export function ProductDescriptionCard({ data, isLoading }: any) {
   const {
@@ -29,8 +31,13 @@ export function ProductDescriptionCard({ data, isLoading }: any) {
     addToWishlistHandler,
     addToCartHandler,
   } = useProductHandlers(data);
-  const { handleMessageSubmit } = useConversationCreator();
+  const { handleMessageSubmit, isChatLoading, conversationId } =
+    useConversationCreator();
   const [averageRating] = useAvgRatingCalc();
+
+  useEffect(() => {
+    handleMessageSubmit;
+  }, [isChatLoading]);
   return (
     <>
       {isLoading ? (
@@ -117,8 +124,31 @@ export function ProductDescriptionCard({ data, isLoading }: any) {
                 className="w-full justify-between"
                 onClick={() => handleMessageSubmit()}
               >
-                Chat with Owner &nbsp;
-                <MessageSquare className="h-4 w-4" />
+                {isChatLoading ? (
+                  <>
+                    {conversationId ? (
+                      <>Going to inbox... </>
+                    ) : (
+                      <>
+                        Creating Inbox <Loader />
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    {conversationId ? (
+                      <>
+                        Chat with Owner &nbsp;
+                        <MessageSquare className="h-4 w-4" />
+                      </>
+                    ) : (
+                      <>
+                        Create Inbox &nbsp;
+                        <MessageSquare className="h-4 w-4" />
+                      </>
+                    )}
+                  </>
+                )}
               </Button>
             </CardFooter>
           </Card>

@@ -1,7 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit";
 
 const initialState = {
-  isLoading: true,
+  isChatLoading: true,
   conversationId: null,
   error: null,
 };
@@ -9,15 +9,15 @@ const initialState = {
 export const conversationReducer = createReducer(initialState, (builder) => {
   builder
     .addCase("CREATE_CONVERSATION_REQUEST", (state) => {
-      state.isLoading = true;
+      state.isChatLoading = true;
       state.error = null;
     })
     .addCase("CREATE_CONVERSATION_SUCCESS", (state: any, action: any) => {
-      state.isLoading = false;
+      state.isChatLoading = false;
       state.conversationId = action.payload;
     })
     .addCase("CREATE_CONVERSATION_FAILURE", (state: any, action: any) => {
-      state.isLoading = false;
+      state.isChatLoading = false;
       state.error = action.payload;
     })
     .addCase("CLEAR_CONVERSATION_ERROR", (state) => {

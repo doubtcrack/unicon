@@ -7,6 +7,7 @@ import socketIO from "socket.io-client";
 import Inbox from "@/components/inbox/Inbox";
 import { Card } from "@/components/ui/card";
 import InboxList from "@/components/inbox/InboxList";
+import { useLocation } from "react-router-dom";
 const ENDPOINT = socket_server;
 const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 
@@ -24,10 +25,34 @@ const ShopInboxPage = () => {
   const [open, setOpen] = useState<any>(false);
   const scrollRef: any = useRef(null);
 
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const cId = queryParams.get("cId");
+  const uId = queryParams.get("uId");
+
+  useEffect(() => {
+    if (uId && cId) setOpen(true);
+  }, [uId, cId]);
+
+  useEffect(() => {
+    if (uId) {
+      setActiveStatus(!!uId);
+      const getUser = async () => {
+        try {
+          const res = await axios.get(`${server}/user/user-info/${uId}`);
+          setUserData(res.data.user);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      getUser();
+    }
+  }, [seller, uId]);
   useEffect(() => {
     socketId.on("getMessage", (data: any) => {
       setArrivalMessage({
-        sender: data.senderId,
+        sender: cId || data.senderId,
         text: data.text,
         createdAt: Date.now(),
       });
@@ -35,30 +60,32 @@ const ShopInboxPage = () => {
   }, []);
 
   useEffect(() => {
-    arrivalMessage &&
-      currentChat?.members.includes(arrivalMessage.sender) &&
-      setMessages((prev) => [...prev, arrivalMessage]);
-  }, [arrivalMessage, currentChat]);
+    if (
+      arrivalMessage &&
+      currentChat?.members.includes(arrivalMessage?.sender)
+    ) {
+      setMessages((prevMessages) => [...prevMessages, arrivalMessage]);
+    }
+  }, [arrivalMessage, currentChat, uId]);
 
   useEffect(() => {
     if (seller) {
       const getConversation = async () => {
         try {
-          const resonse = await axios.get(
+          const response = await axios.get(
             `${server}/conversation/get-all-conversation-seller/${seller?._id}`,
             {
               withCredentials: true,
             }
           );
-
-          setConversations(resonse.data.conversations);
+          setConversations(response.data.conversations);
         } catch (error) {
           // console.log(error);
         }
       };
       getConversation();
     }
-  }, [seller, messages]);
+  }, [seller]);
 
   useEffect(() => {
     if (seller) {
@@ -81,34 +108,32 @@ const ShopInboxPage = () => {
 
   // get messages
   useEffect(() => {
-    if (currentChat) {
-      const getMessage = async () => {
-        try {
+    const getMessage = async () => {
+      try {
+        if (cId || currentChat) {
           const response = await axios.get(
-            `${server}/message/get-all-messages/${currentChat?._id}`
+            `${server}/message/get-all-messages/${cId || currentChat._id}`
           );
           setMessages(response.data.messages);
-        } catch (error) {
-          console.log(error);
         }
-      };
-      getMessage();
-    }
-  }, [currentChat]);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getMessage();
+  }, [cId, currentChat]);
 
   // create new message
-  const sendMessageHandler = async (e: any) => {
+  const sendMessageHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const message = {
       sender: seller._id,
       text: newMessage,
-      conversationId: currentChat._id,
+      conversationId: cId || currentChat?._id,
     };
-
-    const receiverId = currentChat.members.find(
-      (member: any) => member.id !== seller._id
-    );
+    const receiverId =
+      uId || currentChat?.members.find((member: any) => member !== seller._id);
 
     socketId.emit("sendMessage", {
       senderId: seller._id,
@@ -117,16 +142,13 @@ const ShopInboxPage = () => {
     });
 
     try {
-      if (newMessage !== "") {
-        await axios
-          .post(`${server}/message/create-new-message`, message)
-          .then((res) => {
-            setMessages([...messages, res.data.message]);
-            updateLastMessage();
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+      if (newMessage.trim() !== "") {
+        const res = await axios.post(
+          `${server}/message/create-new-message`,
+          message
+        );
+        setMessages([...messages, res.data.message]);
+        updateLastMessage();
       }
     } catch (error) {
       console.log(error);
@@ -138,19 +160,22 @@ const ShopInboxPage = () => {
       lastMessage: newMessage,
       lastMessageId: seller._id,
     });
-
-    await axios
-      .put(`${server}/conversation/update-last-message/${currentChat._id}`, {
-        lastMessage: newMessage,
-        lastMessageId: seller._id,
-      })
-      .then((res) => {
-        console.log(res.data.conversation);
+    try {
+      if (cId || currentChat) {
+        await axios.put(
+          `${server}/conversation/update-last-message/${
+            cId || currentChat._id
+          }`,
+          {
+            lastMessage: newMessage,
+            lastMessageId: seller._id,
+          }
+        );
         setNewMessage("");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleImageUpload = async (e: any) => {
@@ -165,11 +190,10 @@ const ShopInboxPage = () => {
     formData.append("images", e);
     formData.append("sender", seller._id);
     formData.append("text", newMessage);
-    formData.append("conversationId", currentChat._id);
+    formData.append("conversationId", cId || currentChat._id);
 
-    const receiverId = currentChat.members.find(
-      (member: any) => member !== seller._id
-    );
+    const receiverId =
+      cId || currentChat.members.find((member: any) => member !== seller._id);
 
     socketId.emit("sendMessage", {
       senderId: seller._id,
@@ -196,7 +220,7 @@ const ShopInboxPage = () => {
 
   const updateLastMessageForImage = async () => {
     await axios.put(
-      `${server}/conversation/update-last-message/${currentChat._id}`,
+      `${server}/conversation/update-last-message/${cId || currentChat._id}`,
       {
         lastMessage: "Photo",
         lastMessageId: seller._id,
@@ -227,6 +251,7 @@ const ShopInboxPage = () => {
               setActiveStatus={setActiveStatus}
               navigationPath={"/shop/dashboard/inbox"}
               path={"user/user-info"}
+              uId={uId}
             />
           ))}
         </Card>

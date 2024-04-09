@@ -28,18 +28,17 @@ const InboxPage = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const cId = queryParams.get("cId");
-  const sId = queryParams.get("sId");
+  const uId = queryParams.get("uId");
 
   useEffect(() => {
-    if (sId && cId) setOpen(true);
-  }, [sId, cId]);
-  console.log(activeStatus);
+    if (uId && cId) setOpen(true);
+  }, [uId, cId]);
   useEffect(() => {
-    if (sId) {
-      setActiveStatus(!!sId);
+    if (uId) {
+      setActiveStatus(!!uId);
       const getUser = async () => {
         try {
-          const res = await axios.get(`${server}/shop/get-shop-info/${sId}`);
+          const res = await axios.get(`${server}/shop/get-shop-info/${uId}`);
           setUserData(res.data.shop);
         } catch (error) {
           console.log(error);
@@ -87,8 +86,8 @@ const InboxPage = () => {
 
   useEffect(() => {
     if (user) {
-      const sellerId = user._id;
-      socketId.emit("addUser", sellerId);
+      const userId = user._id;
+      socketId.emit("addUser", userId);
       socketId.on("getUsers", (data) => {
         setOnlineUsers(data);
       });
@@ -119,9 +118,8 @@ const InboxPage = () => {
       text: newMessage,
       conversationId: cId || currentChat?._id,
     };
-    const receiverId = currentChat?.members.find(
-      (member: any) => member !== user._id
-    );
+    const receiverId =
+      currentChat?.members.find((member: any) => member !== user._id) || uId;
 
     socketId.emit("sendMessage", {
       senderId: user._id,
@@ -136,6 +134,7 @@ const InboxPage = () => {
           message
         );
         setMessages([...messages, res.data.message]);
+        console.log(message);
         updateLastMessage();
       }
     } catch (error) {
@@ -148,11 +147,14 @@ const InboxPage = () => {
       lastMessage: newMessage,
       lastMessageId: user._id,
     });
+    console.log("nm " + newMessage);
 
     try {
-      if (currentChat || cId) {
+      if (cId || currentChat) {
         await axios.put(
-          `${server}/conversation/update-last-message/${currentChat._id}`,
+          `${server}/conversation/update-last-message/${
+            cId || currentChat._id
+          }`,
           {
             lastMessage: newMessage,
             lastMessageId: user._id,
@@ -181,9 +183,8 @@ const InboxPage = () => {
     formData.append("text", newMessage);
     formData.append("conversationId", cId || currentChat?._id);
 
-    const receiverId = currentChat?.members.find(
-      (member: any) => member !== user._id
-    );
+    const receiverId =
+      cId || currentChat?.members.find((member: any) => member !== user._id);
 
     socketId.emit("sendMessage", {
       senderId: user._id,
@@ -213,7 +214,9 @@ const InboxPage = () => {
     try {
       if (currentChat) {
         await axios.put(
-          `${server}/conversation/update-last-message/${currentChat._id}`,
+          `${server}/conversation/update-last-message/${
+            cId || currentChat._id
+          }`,
           {
             lastMessage: "Photo",
             lastMessageId: user._id,
@@ -255,7 +258,7 @@ const InboxPage = () => {
               setActiveStatus={setActiveStatus}
               navigationPath={"/dashboard/inbox"}
               path={"shop/get-shop-info"}
-              sId={sId}
+              uId={uId}
             />
           ))}
         </Card>

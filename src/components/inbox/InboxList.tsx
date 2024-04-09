@@ -21,12 +21,12 @@ const InboxList = ({
   const navigate = useNavigate();
   let userId = data.members.find((user: any) => user !== me);
   const handleClick = (id: any) => {
-    navigate(`${navigationPath}?cId=${id}&sId=${userId}`);
+    navigate(`${navigationPath}?cId=${id}&uId=${userId}`);
     setOpen(true);
   };
   useEffect(() => {
     setActiveStatus(online);
-
+    console.log(data);
     const getUser = async () => {
       try {
         if (userId) {

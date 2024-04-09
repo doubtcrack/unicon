@@ -12,7 +12,7 @@ const useProductFilter = () => {
 
   useEffect(() => {
     const filterProducts = () => {
-      if (categoryData === null) {
+      if (categoryData === null || categoryData === "All") {
         setFilteredProducts(allProducts);
       } else {
         setFilteredProducts(

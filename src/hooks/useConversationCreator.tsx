@@ -24,7 +24,7 @@ const useConversationCreator = () => {
       try {
         await dispatch(createConversation(groupTitle, userId, sellerId));
         if (conversationId) {
-          navigate(`/dashboard/inbox?cId=${conversationId}&sId=${data.shopId}`);
+          navigate(`/dashboard/inbox?cId=${conversationId}&uId=${data.shopId}`);
         }
       } catch (error) {
         toast.error("Error creating conversation");

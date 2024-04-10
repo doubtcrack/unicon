@@ -55,6 +55,20 @@ const ShopCreateProductPage = () => {
     newForm.append("shopId", seller?._id);
     dispatch(createProduct(newForm));
   };
+
+  const handlePaste = (e: any) => {
+    e.preventDefault();
+    const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+    for (let index in items) {
+      const item = items[index];
+      if (item.kind === "file") {
+        const blob = item.getAsFile();
+        setImages((prevImages: any) => [blob, ...prevImages]);
+        break;
+      }
+    }
+  };
+
   useEffect(() => {
     if (tag.includes(",")) {
       const newTags = tag
@@ -92,7 +106,10 @@ const ShopCreateProductPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center w-full min-h-[90vh] mt-8">
+    <div
+      className="flex justify-center items-center w-full min-h-[90vh] mt-8"
+      onPaste={handlePaste}
+    >
       <form
         className="grid w-full lg:w-[100vh] items-start gap-6"
         onSubmit={handleSubmit}

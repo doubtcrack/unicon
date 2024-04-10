@@ -13,17 +13,20 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
   });
 }
 
-app.use(
-  cors({
-    origin: [
-      process.env.CLIENT_URL1,
-      process.env.CLIENT_URL2,
-      process.env.CLIENT_URL3,
-      process.env.CLIENT_URL4,
-    ],
-    credentials: true,
-  })
-);
+const allowedOrigins = [
+  process.env.CLIENT_URL1,
+  process.env.CLIENT_URL2,
+  process.env.CLIENT_URL3,
+  process.env.CLIENT_URL4,
+];
+
+const corsOptions = {
+  origin: allowedOrigins,
+  credentials: true,
+};
+
+// CORS middleware
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(cookieParser());

@@ -492,7 +492,7 @@ async function deleteUser(req, res, next) {
 
 function createActivationToken(user) {
   return jwt.sign(user, process.env.ACTIVATION_SECRET, {
-    expiresIn: "5m",
+    expiresIn: "30m",
   });
 }
 

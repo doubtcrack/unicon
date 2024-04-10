@@ -89,7 +89,7 @@ async function createShop(req, res, next) {
       return res.status(400).json({ message: "Please Enter all Fields" });
     }
 
-    const seller = new Shop({
+    const seller = {
       name: name,
       email: email,
       password: password,
@@ -97,32 +97,36 @@ async function createShop(req, res, next) {
       cloudinary_id: result.public_id,
       address: req.body.address,
       phoneNumber: req.body.phoneNumber,
-    });
+    };
 
     const activationToken = createActivationToken(seller);
 
     const activationUrl = `${process.env.CLIENT_URL1}/seller/activation/${activationToken}`;
+    try {
+      await sendMail({
+        email: seller.email,
+        name: seller.name,
+        url: activationUrl,
+        subject: "Activate your Seller Account",
+        template: activateTemplateEmail,
+      });
 
-    await sendMail({
-      email: seller.email,
-      name: seller.name,
-      url: activationUrl,
-      subject: "Activate your Seller Account",
-      template: activateTemplateEmail,
-    });
-
-    res.status(201).json({
-      success: true,
-      message: `Please check your email (${seller.email}) to activate your shop!`,
-    });
+      res.status(201).json({
+        success: true,
+        message: `Please check your email (${seller.email}) to activate your shop!`,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
   } catch (error) {
-    next(new ErrorHandler(error.message, error.status || 500));
+    next(new ErrorHandler(error.message, 400));
   }
 }
 
 async function activateSeller(req, res, next) {
   try {
     const { activation_token } = req.body;
+    console.log(activation_token, "\n" + process.env.ACTIVATION_SECRET);
     const newSeller = jwt.verify(
       activation_token,
       process.env.ACTIVATION_SECRET
@@ -339,7 +343,7 @@ async function deleteSeller(req, res, next) {
 
 function createActivationToken(seller) {
   return jwt.sign(seller, process.env.ACTIVATION_SECRET, {
-    expiresIn: "5m",
+    expiresIn: "30m",
   });
 }
 

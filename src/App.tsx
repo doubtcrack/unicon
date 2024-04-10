@@ -34,6 +34,8 @@ import ShopPreviewPage from "./pages/ShopPreviewPage";
 import FAQPage from "./pages/FAQPage";
 import UserProtectedRoute from "./routes/UserProtectedRoute";
 import SellerProtectedRoute from "./routes/SellerProtectedRoute";
+import ResetPassPage from "./pages/Auth/ResetPassPage";
+import ForgetPassPage from "./pages/Auth/ForgetPassPage";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +45,10 @@ const router = createBrowserRouter([
   {
     path: "signin",
     element: <SignInPage />,
+  },
+  {
+    path: "forgotPass",
+    element: <ForgetPassPage />,
   },
   {
     path: "/",
@@ -93,6 +99,14 @@ const router = createBrowserRouter([
       {
         path: "seller/activation/:activation_token",
         element: <ActivationPage />,
+      },
+      {
+        path: "reset/:reset_token",
+        element: <ResetPassPage />,
+      },
+      {
+        path: "seller/reset/:reset_token",
+        element: <ResetPassPage />,
       },
       {
         path: "shop/preview/:shopId",

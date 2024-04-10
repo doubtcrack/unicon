@@ -28,10 +28,10 @@ export function SignUpForm() {
         <TabsTrigger value="seller">Seller</TabsTrigger>
       </TabsList>
       <TabsContent value="user" className="w-full max-w-lg">
-        <SignUpCard path={"user/create-user"} afterpath={"/"} />
+        <SignUpCard path={"user/create-user"} afterpath={"/signin"} />
       </TabsContent>
       <TabsContent value="seller" className="w-full max-w-lg">
-        <SignUpCard path={"shop/create-shop"} afterpath={"/admin/dashboard"} />
+        <SignUpCard path={"shop/create-shop"} afterpath={"/signin"} />
       </TabsContent>
     </Tabs>
   );

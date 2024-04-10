@@ -134,7 +134,6 @@ const InboxPage = () => {
           message
         );
         setMessages([...messages, res.data.message]);
-        console.log(message);
         updateLastMessage();
       }
     } catch (error) {
@@ -147,7 +146,6 @@ const InboxPage = () => {
       lastMessage: newMessage,
       lastMessageId: user._id,
     });
-    console.log("nm " + newMessage);
 
     try {
       if (cId || currentChat) {

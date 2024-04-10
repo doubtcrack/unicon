@@ -70,7 +70,7 @@ const SignInCard = ({ path, afterpath }: any) => {
             <div className="flex items-center">
               <Label htmlFor="password">Password</Label>
               <Link
-                to="/forget"
+                to="/forgotPass"
                 className="ml-auto inline-block text-sm underline"
               >
                 Forgot your password?

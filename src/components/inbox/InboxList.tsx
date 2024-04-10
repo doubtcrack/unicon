@@ -26,7 +26,6 @@ const InboxList = ({
   };
   useEffect(() => {
     setActiveStatus(online);
-    console.log(data);
     const getUser = async () => {
       try {
         if (userId) {

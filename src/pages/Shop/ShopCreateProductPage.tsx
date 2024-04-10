@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { createProduct } from "@/redux/actions/product";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Select,
@@ -19,6 +19,8 @@ import { Badge } from "@/components/ui/badge";
 
 const ShopCreateProductPage = () => {
   const { seller } = useSelector((state: any) => state.seller);
+  const { isLoading } = useSelector((state: any) => state.products);
+
   const dispatch: any = useDispatch();
 
   const [images, setImages]: any = useState([]);
@@ -53,17 +55,18 @@ const ShopCreateProductPage = () => {
     newForm.append("shopId", seller?._id);
     dispatch(createProduct(newForm));
   };
-
-  const handleTagKeyPress = (e: any) => {
-    if (e.key === " " || e.key === "Enter" || e.key === ",") {
-      e.preventDefault();
-      const newTag = tag.trim();
-      if (newTag) {
-        setTags([...tags, newTag]);
+  useEffect(() => {
+    if (tag.includes(",")) {
+      const newTags = tag
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter((tag) => tag !== "");
+      if (newTags.length > 0) {
+        setTags((prevTags: any) => [...prevTags, ...newTags]);
         setTag("");
       }
     }
-  };
+  }, [tag]);
 
   const handleRemoveTag = (tagToRemove: any) => {
     setTags(tags.filter((tag: any) => tag !== tagToRemove));
@@ -143,9 +146,7 @@ const ShopCreateProductPage = () => {
               type="text"
               value={tag}
               onChange={(e) => setTag(e.target.value)}
-              onKeyDown={handleTagKeyPress}
-              onBlur={handleTagKeyPress}
-              placeholder="Enter product related tags here..."
+              placeholder="Separate them by commas"
             />
             <div className="flex flex-wrap">
               {tags.map((tag: any, index: any) => (
@@ -203,7 +204,7 @@ const ShopCreateProductPage = () => {
               name="productImage"
               multiple
               onChange={handleImageChange}
-              className="file:text-muted-foreground file:cursor-pointer file:rounded-md file:bg-primary"
+              className="file:text-muted file:cursor-pointer file:rounded-md file:bg-primary"
             />
             <div className="w-full flex items-center flex-wrap">
               {images &&
@@ -232,9 +233,15 @@ const ShopCreateProductPage = () => {
             </div>
           </div>
         </fieldset>
-        <Button value="Update" type="submit">
-          Create
-        </Button>
+        {isLoading ? (
+          <Button className="!bg-secondary !text-muted-foreground">
+            Creating....
+          </Button>
+        ) : (
+          <Button value="Update" type="submit">
+            Create
+          </Button>
+        )}
       </form>
     </div>
   );

@@ -126,7 +126,6 @@ async function createShop(req, res, next) {
 async function activateSeller(req, res, next) {
   try {
     const { activation_token } = req.body;
-    console.log(activation_token, "\n" + process.env.ACTIVATION_SECRET);
     const newSeller = jwt.verify(
       activation_token,
       process.env.ACTIVATION_SECRET

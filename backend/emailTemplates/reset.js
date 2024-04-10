@@ -56,7 +56,11 @@ const resetTemplateEmail = `
             border-radius: 5px;
         }
       .button:hover{
-      color:yellow}
+      color:skyblue}
+      
+      .link {
+      font-size: 12px;
+      }
 
         /* Footer */
         .footer {
@@ -79,19 +83,19 @@ const resetTemplateEmail = `
             <p>Hello {{name}},</p>
             <p>We found a request for resetting the password. To reset your password, please click the button below:</p>
             <p><a href={{email_link}}" class="button">Reset Password</a></p>
-              <p>If the above button is not working, copy the below given link and open in the browser:<br/>{{email_link}}</p>
+              <p>If the above button is not working, copy the below given link and open in the browser:<br/><a href={{email_link}}" class="link">{{email_link}}
+              </a></p>
         </div>
 
         <!-- Footer -->
         <div class="footer">
-            <p>If you did not send the request for reset password, you can safely ignore this email.</p>
+            <p>If you did not sign up for this account, you can safely ignore this email.</p>
             <p>&copy; unicon team.</p>
         </div>
     </div>
 </body>
 
 </html>
-
 `;
 
 module.exports = resetTemplateEmail;

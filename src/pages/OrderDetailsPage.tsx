@@ -183,7 +183,7 @@ const OrderDetailsPage = () => {
         </div>
         <DialogFooter>
           {isLoading ? (
-            <Button className="!bg-secondary">
+            <Button className="!bg-secondary !text-muted-foreground">
               Submitting Review <Loader />
             </Button>
           ) : (

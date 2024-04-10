@@ -66,7 +66,7 @@ const ForgetPassCard = ({ path }: any) => {
             />
           </div>
           {isLoading ? (
-            <Button className="w-full !bg-secondary">
+            <Button className="w-full !bg-secondary !text-muted-foreground">
               Sending reset link <Loader />
             </Button>
           ) : (

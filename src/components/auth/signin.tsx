@@ -98,7 +98,7 @@ const SignInCard = ({ path, afterpath }: any) => {
             </div>
           </div>
           {isLoading || loading ? (
-            <Button className="w-full !bg-secondary">
+            <Button className="w-full !bg-secondary !text-muted-foreground">
               Logging in <Loader />
             </Button>
           ) : (

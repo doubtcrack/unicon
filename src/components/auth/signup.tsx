@@ -149,7 +149,7 @@ const SignUpCard = ({ path, afterpath }: any) => {
             </div>
           </div>
           {isLoading || loading ? (
-            <Button className="w-full !bg-secondary">
+            <Button className="w-full !bg-secondary !text-muted-foreground">
               Creating your Account <Loader />
             </Button>
           ) : (

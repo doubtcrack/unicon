@@ -31,7 +31,7 @@ const ShopSettingsPage = () => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("image", file);
-    dispatch(updateAvatar(formData, "user/update-avatar"));
+    dispatch(updateAvatar(formData, "shop/update-shop-avatar"));
     setAvatar(file);
   };
 

@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Categories } from "@/constants/site";
-import { X } from "lucide-react";
+import { FileImage, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 const ShopCreateProductPage = () => {
@@ -56,7 +56,7 @@ const ShopCreateProductPage = () => {
     dispatch(createProduct(newForm));
   };
 
-  const handlePaste = (e: any) => {
+  const handlePaste: any = (e: any) => {
     e.preventDefault();
     const items = (e.clipboardData || e.originalEvent.clipboardData).items;
     for (let index in items) {
@@ -75,9 +75,16 @@ const ShopCreateProductPage = () => {
         .split(",")
         .map((tag) => tag.trim())
         .filter((tag) => tag !== "");
+      console.log(newTags);
       if (newTags.length > 0) {
-        setTags((prevTags: any) => [...prevTags, ...newTags]);
-        setTag("");
+        setTags((prevTags: any) => {
+          const uniqueNewTags = newTags.filter(
+            (tag: any) => !prevTags.includes(tag)
+          );
+
+          setTag("");
+          return [...prevTags, ...uniqueNewTags];
+        });
       }
     }
   }, [tag]);
@@ -106,10 +113,7 @@ const ShopCreateProductPage = () => {
   };
 
   return (
-    <div
-      className="flex justify-center items-center w-full min-h-[90vh] mt-8"
-      onPaste={handlePaste}
-    >
+    <div className="flex justify-center items-center w-full min-h-[90vh] mt-8">
       <form
         className="grid w-full lg:w-[100vh] items-start gap-6"
         onSubmit={handleSubmit}
@@ -223,6 +227,13 @@ const ShopCreateProductPage = () => {
               onChange={handleImageChange}
               className="file:text-muted file:cursor-pointer file:rounded-md file:bg-primary"
             />
+            <div
+              className="border m-4 p-8 bg-secondary rounded-md flex justify-center items-center cursor-pointer"
+              onPaste={handlePaste}
+            >
+              &nbsp;
+              <FileImage className="stroke-muted-foreground" />
+            </div>
             <div className="w-full flex items-center flex-wrap">
               {images &&
                 images.map((i: any, index: any) => (
@@ -232,7 +243,7 @@ const ShopCreateProductPage = () => {
                     onDragStart={(e) => handleDragStart(e, index)}
                     onDragOver={(e) => e.preventDefault()}
                     onDrop={(e) => handleDrop(e, index)}
-                    className="relative cursor-move"
+                    className="relative cursor-move "
                   >
                     <img
                       src={URL.createObjectURL(i)}

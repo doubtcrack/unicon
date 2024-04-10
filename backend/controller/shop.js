@@ -282,7 +282,14 @@ async function getShopInfo(req, res, next) {
 async function updateShopAvatar(req, res, next) {
   try {
     const existsSeller = await Shop.findById(req.seller._id);
-    await cloudinary.uploader.destroy(existsSeller.cloudinary_id);
+
+    // Delete image from cloudinary
+    if (existsSeller?.cloudinary_id) {
+      await cloudinary.uploader.destroy(existsSeller?.cloudinary_id);
+    }
+
+    // Upload image to cloudinary
+
     const result = await cloudinary.uploader.upload(req.file.path);
     const seller = await Shop.findByIdAndUpdate(req.seller._id, {
       avatar: result?.secure_url,

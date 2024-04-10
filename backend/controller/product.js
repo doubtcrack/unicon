@@ -33,7 +33,6 @@ router.post(
           return next(
             new ErrorHandler("Product without Image is not accepted", 400)
           );
-        console.log(req.body);
         const {
           name,
           description,
@@ -41,7 +40,9 @@ router.post(
           originalPrice,
           discountPrice,
           stock,
+          tags,
         } = req.body;
+
         if (
           !name ||
           !description ||
@@ -58,9 +59,11 @@ router.post(
             new ErrorHandler("Discount can't be greater than MRP", 400)
           );
         }
+
         const productData = req.body;
         productData.images = imageUrls;
         productData.shop = shop;
+        productData.tags = tags;
 
         const product = await Product.create(productData);
 

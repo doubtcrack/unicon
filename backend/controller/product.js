@@ -29,8 +29,35 @@ router.post(
           });
           imageUrls.push(result.secure_url);
         }
-        // const imageUrls = files.map((file) => `${file.filename}`);
+        if (imageUrls.length < 1)
+          return next(
+            new ErrorHandler("Product without Image is not accepted", 400)
+          );
+        console.log(req.body);
+        const {
+          name,
+          description,
+          category,
+          originalPrice,
+          discountPrice,
+          stock,
+        } = req.body;
+        if (
+          !name ||
+          !description ||
+          !category ||
+          discountPrice === "undefined" ||
+          originalPrice === "undefined" ||
+          stock === "undefined"
+        ) {
+          return next(new ErrorHandler("Fill all the fields", 400));
+        }
 
+        if (parseInt(discountPrice) > parseInt(originalPrice)) {
+          return next(
+            new ErrorHandler("Discount can't be greater than MRP", 400)
+          );
+        }
         const productData = req.body;
         productData.images = imageUrls;
         productData.shop = shop;

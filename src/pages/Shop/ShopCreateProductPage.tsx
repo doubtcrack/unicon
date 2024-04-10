@@ -45,10 +45,13 @@ const ShopCreateProductPage = () => {
     images.forEach((image: any) => {
       newForm.append("images", image);
     });
+    tags.forEach((tag: any) => {
+      newForm.append("tags", tag);
+    });
     newForm.append("name", name);
     newForm.append("description", description);
     newForm.append("category", category);
-    newForm.append("tags", tags);
+    // newForm.append("tags", tags);
     newForm.append("originalPrice", originalPrice);
     newForm.append("discountPrice", discountPrice);
     newForm.append("stock", stock);
@@ -75,7 +78,6 @@ const ShopCreateProductPage = () => {
         .split(",")
         .map((tag) => tag.trim())
         .filter((tag) => tag !== "");
-      console.log(newTags);
       if (newTags.length > 0) {
         setTags((prevTags: any) => {
           const uniqueNewTags = newTags.filter(

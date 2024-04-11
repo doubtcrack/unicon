@@ -57,7 +57,7 @@ const CheckoutPage = () => {
       };
       dispatch(createOrderForUser(orderData));
       dispatch(clearCart());
-      navigate(`/product`);
+      navigate(`/products`);
     } else if (isLastStep && !cart.length) {
       toast.error("Empty Cart!");
     } else {

@@ -66,7 +66,7 @@ const Inbox = ({
                 />
               )}
               {item.text !== "" && (
-                <div>
+                <div className="flex flex-col w-[40%]">
                   <div
                     className={`relative ml-3 text-sm py-2 px-4 shadow rounded-xl ${
                       item.sender === sellerId ? "bg-indigo-100" : "bg-white"

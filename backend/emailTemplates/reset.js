@@ -82,8 +82,8 @@ const resetTemplateEmail = `
         <div class="content">
             <p>Hello {{name}},</p>
             <p>We found a request for resetting the password. To reset your password, please click the button below:</p>
-            <p><a href={{email_link}}" class="button">Reset Password</a></p>
-              <p>If the above button is not working, copy the below given link and open in the browser:<br/><a href={{email_link}}" class="link">{{email_link}}
+            <p><a href={{email_link}} class="button">Reset Password</a></p>
+              <p>If the above button is not working, copy the below given link and open in the browser:<br/><a href={{email_link}} class="link">{{email_link}}
               </a></p>
         </div>
 

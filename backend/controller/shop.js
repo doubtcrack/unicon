@@ -34,8 +34,11 @@ router.get("/logout", catchAsyncErrors(logout));
 // Forgot password
 router.post("/forgot-password", catchAsyncErrors(forgotPassword));
 
-// Reset password
-router.put("/reset", catchAsyncErrors(resetPassword));
+// Route for verifying reset Token
+router.get("/reset/:reset_token", catchAsyncErrors(resetVerify));
+
+// Route for resetting seller password
+router.post("/reset", catchAsyncErrors(resetPassword));
 
 // Get shop info by ID
 router.get("/get-shop-info/:id", catchAsyncErrors(getShopInfo));
@@ -241,19 +244,33 @@ async function forgotPassword(req, res, next) {
     return next(new ErrorHandler(error.message, error.status || 500));
   }
 }
+async function resetVerify(req, res, next) {
+  try {
+    const { reset_token } = req.params;
+
+    const decoded = jwt.verify(reset_token, process.env.RESET_SECRET);
+    if (!decoded) {
+      return next(new ErrorHandler("Expired or invalid token", 400));
+    }
+    res
+      .status(200)
+      .json({ success: true, message: "Reset Token Verified!" });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, error.status || 500));
+  }
+}
 
 async function resetPassword(req, res, next) {
   try {
-    const { reset_token } = req.body;
+    const { reset_token, password } = req.body;
 
     const decoded = jwt.verify(reset_token, process.env.RESET_SECRET);
 
     if (!decoded) {
       return next(new ErrorHandler("Expired or invalid token", 400));
     }
-    const { email } = decoded;
 
-    const seller = await Shop.findById(email);
+    const seller = await Shop.findById(decoded.id);
 
     if (!seller) {
       return next(new ErrorHandler("Seller not found", 404));
@@ -264,7 +281,7 @@ async function resetPassword(req, res, next) {
 
     res
       .status(200)
-      .json({ success: true, message: "Password reset successfully!" });
+      .json({ success: true, message: "Reset Token Verified!" });
   } catch (error) {
     return next(new ErrorHandler(error.message, error.status || 500));
   }

@@ -34,8 +34,11 @@ router.get("/logout", catchAsyncErrors(logoutUser));
 // Route for user forgot password
 router.post("/forgot-password", catchAsyncErrors(forgotPassword));
 
+// Route for verifying reset Token
+router.get("/reset/:reset_token", catchAsyncErrors(resetVerify));
+
 // Route for resetting user password
-router.put("/reset", catchAsyncErrors(resetPassword));
+router.post("/reset", catchAsyncErrors(resetPassword));
 
 // Route to update user information
 router.put(
@@ -152,7 +155,6 @@ async function createUser(req, res, next) {
 async function activateUser(req, res, next) {
   try {
     const { activation_token } = req.body;
-
     const newUser = jwt.verify(activation_token, process.env.ACTIVATION_SECRET);
 
     if (!newUser) {
@@ -270,18 +272,33 @@ async function forgotPassword(req, res, next) {
   }
 }
 
+async function resetVerify(req, res, next) {
+  try {
+    const { reset_token } = req.params;
+
+    const decoded = jwt.verify(reset_token, process.env.RESET_SECRET);
+    if (!decoded) {
+      return next(new ErrorHandler("Expired or invalid token", 400));
+    }
+    res
+      .status(200)
+      .json({ success: true, message: "Reset Token Verified!" });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, error.status || 500));
+  }
+}
+
 async function resetPassword(req, res, next) {
   try {
-    const { reset_token } = req.body;
+    const { reset_token, password } = req.body;
 
     const decoded = jwt.verify(reset_token, process.env.RESET_SECRET);
 
     if (!decoded) {
       return next(new ErrorHandler("Expired or invalid token", 400));
     }
-    const { email } = decoded;
 
-    const user = await User.findById(email);
+    const user = await User.findById(decoded.id);
 
     if (!user) {
       return next(new ErrorHandler("User not found", 404));
@@ -292,12 +309,11 @@ async function resetPassword(req, res, next) {
 
     res
       .status(200)
-      .json({ success: true, message: "Password reset successfully!" });
+      .json({ success: true, message: "Reset Token Verified!" });
   } catch (error) {
     return next(new ErrorHandler(error.message, error.status || 500));
   }
 }
-
 async function updateUserInfo(req, res, next) {
   try {
     const { email, password, phoneNumber, name } = req.body;

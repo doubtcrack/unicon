@@ -1,3 +1,4 @@
+import ResetPassForm from "@/components/auth/resetPass";
 import { server } from "@/server";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -8,16 +9,13 @@ const ResetPassPage = () => {
   const [error, setError] = useState(false);
   const { pathname }: any = useLocation();
   const substring = "seller/reset";
+  let path = pathname.includes(substring) ? "shop" : "user";
   useEffect(() => {
     if (reset_token) {
       const sendRequest = async () => {
         await axios
-          .post(
-            `${server}/${pathname.includes(substring) ? "shop" : "user"}/reset`,
-            {
-              reset_token,
-            }
-          )
+          .get(
+            `${server}/${path}/reset/${reset_token}`)
           .then((res) => {
             console.log(res);
           })
@@ -33,9 +31,7 @@ const ResetPassPage = () => {
       {error ? (
         <p className="text-red-600 text-center">Your token is expired!</p>
       ) : (
-        <p className="text-green-500 text-center">
-          Your password reset suceessfully!
-        </p>
+        <ResetPassForm path={path} reset_token={reset_token}/>
       )}
     </div>
   );

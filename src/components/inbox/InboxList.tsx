@@ -80,7 +80,7 @@ const InboxList = ({
 
     { data?.lastMessage?.length <= 100
       ? data.lastMessage
-      : `${data.lastMessage.substring(0, 99)}...`}
+      : `${data?.lastMessage?.substring(0, 99)}...`}
 
             </p>
           </div>

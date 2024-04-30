@@ -42,14 +42,14 @@ const Inbox = ({
             alt=""
             className="object-cover relative w-[25px] h-[25px] cursor-pointer overflow-hidden rounded-full border border-border p-1"
           />
-          <div className="pl-3 flex items-center justify-between text-base">
+          <div className="pl-3 flex items-center justify-between text-base text-white">
             <h1 className="font-bold">{userData?.name}</h1>
             <h1>&nbsp; is {activeStatusText}</h1>
           </div>
         </div>
         <ArrowRight
           size={20}
-          className="cursor-pointer"
+          className="cursor-pointer stroke-white"
           onClick={() => setOpen(false)}
         />
       </div>
@@ -68,7 +68,7 @@ const Inbox = ({
               {item.sender !== sellerId && (
                 <img
                   src={userData?.avatar}
-                  className="w-[30px] h-[30px] mr-3 object-cover relative cursor-pointer overflow-hidden rounded-full border border-border-100 p-1"
+                  className="w-[30px] h-[30px] md:mr-3 object-cover relative cursor-pointer overflow-hidden rounded-full border border-border-100 p-1"
                   alt="avatar"
                 />
               )}
@@ -85,7 +85,7 @@ const Inbox = ({
                 </>
               )}
               {item.text !== "" && (
-                <div className="flex flex-col w-[40%]">
+                <div className="flex flex-col w-[90%] md:w-[40%]">
                   <div
                     className={`flex  justify-between relative ml-3 text-sm py-2 px-4 shadow rounded-xl ${
                       item.sender === sellerId ? "bg-indigo-100" : "bg-white"

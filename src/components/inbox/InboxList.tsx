@@ -59,7 +59,7 @@ const InboxList = ({
           } cursor-pointer`}
           onClick={handleItemClick}
         >
-          <div className="relative">
+          <div className="relative min-h-8 min-w-8">
             <img
               src={user?.avatar}
               alt="avatar"
@@ -77,7 +77,11 @@ const InboxList = ({
               {data?.lastMessageId !== userData?._id
                 ? "You:"
                 : `${user?.name?.split(" ")[0]}:`}{" "}
-              {data?.lastMessage}
+
+    { data?.lastMessage?.length <= 100
+      ? data.lastMessage
+      : `${data.lastMessage.substring(0, 99)}...`}
+
             </p>
           </div>
         </div>

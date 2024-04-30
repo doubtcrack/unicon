@@ -70,4 +70,31 @@ router.get(
   })
 );
 
+//delete message with messageId
+router.delete(
+  "/delete-messages/:id",
+  catchAsyncErrors(async (req, res, next) => {try {
+    const messageId = req.params.id;
+    const deletedMessage = await Messages.findByIdAndDelete(messageId);
+
+    if (!deletedMessage) {
+      return res.status(404).json({ success: false, message: "Message not found" });
+    }
+
+     // Extract the image key from the message URL
+     const imageUrl = deletedMessage.images;
+     if(imageUrl){
+     const imageKey = imageUrl.substring(imageUrl.lastIndexOf("/") + 1, imageUrl.lastIndexOf("."));
+
+     // Delete the image from Cloudinary
+     await cloudinary.uploader.destroy('conversation/' + imageKey);
+}
+    res.status(200).json({ success: true, message: "Message deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting message:", error);
+    return next(new ErrorHandler("Internal Server Error", 500));
+  }
+})
+)
+
 module.exports = router;

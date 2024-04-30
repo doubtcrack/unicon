@@ -4,6 +4,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { timeAgo } from "@/lib/timeago";
 import { ArrowRight, Images, Send } from "lucide-react";
 import { useState } from "react";
+import { SVGIcons } from "../svgIcons";
+import axios from "axios";
+import { server } from "@/server";
 
 const Inbox = ({
   setOpen,
@@ -11,6 +14,8 @@ const Inbox = ({
   setNewMessage,
   sendMessageHandler,
   messages,
+  images,
+  setMessages,
   sellerId,
   userData,
   activeStatus,
@@ -18,6 +23,15 @@ const Inbox = ({
   handleImageUpload,
 }: any) => {
   const [activeStatusText] = useState(activeStatus ? "active" : "inactive");
+  const handleDeleteMessage = async (id:any) => {
+    try {
+      await axios.delete(`${server}/message/delete-messages/${id}`);
+      setMessages((prevMessages:any) => prevMessages.filter((message:any) => message._id !== id));
+    } catch (error) {
+      console.error('Error deleting message:', error);
+    }
+  };
+
   return (
     <div className="w-full h-[80vh] flex flex-col justify-between p-2 rounded-lg">
       {/* message header */}
@@ -55,24 +69,32 @@ const Inbox = ({
                 <img
                   src={userData?.avatar}
                   className="w-[30px] h-[30px] mr-3 object-cover relative cursor-pointer overflow-hidden rounded-full border border-border-100 p-1"
-                  alt=""
+                  alt="avatar"
                 />
               )}
               {item.images && (
+                <>
                 <img
                   src={item.images}
-                  className="w-[120px] h-[120px] 800px:w-[200px] 800px:h-[200px] object-cover rounded-lg ml-2 mb-2"
-                  alt=""
+                  className="w-[120px] h-[120px] 800px:w-[200px] 800px:h-[200px] object-cover rounded-lg ml-2 mb-2 z-0"
+                  alt="chat images"
                 />
+                <span className="inline z-10 opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer bg-sky-100 text-zinc-800 h-fit rounded-sm" onClick={() => handleDeleteMessage(item._id)}>
+                     <SVGIcons.delete />
+                </span>
+                </>
               )}
               {item.text !== "" && (
                 <div className="flex flex-col w-[40%]">
                   <div
-                    className={`relative ml-3 text-sm py-2 px-4 shadow rounded-xl ${
+                    className={`flex  justify-between relative ml-3 text-sm py-2 px-4 shadow rounded-xl ${
                       item.sender === sellerId ? "bg-indigo-100" : "bg-white"
                     } text-muted-foreground h-min`}
                   >
                     <p>{item.text}</p>
+                    <span className="z-10 opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer text-gray-900" onClick={() => handleDeleteMessage(item._id)}>
+                      <SVGIcons.delete/>
+                    </span>
                   </div>
 
                   <p className="text-sm text-muted-foreground pt-1 ">
@@ -82,6 +104,15 @@ const Inbox = ({
               )}
             </div>
           ))}
+
+{images && <div className=" flex w-full justify-end ">
+           <img
+            src={URL.createObjectURL(images)}
+            className="w-[120px] h-[120px] 800px:w-[200px] 800px:h-[200px] object-cover rounded-lg ml-2 mb-2 z-0 opacity-30"
+            alt="chat images"
+          />
+          <span className="text-muted-foreground relative top-20">Loading...</span>
+          </div>}
       </ScrollArea>
 
       {/* send message input */}
@@ -100,17 +131,18 @@ const Inbox = ({
           />
           <label htmlFor="image">
             <Images
-              className="flex items-center justify-center text-muted-foreground hover:text-muted cursor-pointer"
+              className="flex items-center justify-center text-current hover:text-muted cursor-pointer"
               size={20}
             />
           </label>
         </div>
         <div className="flex-grow ml-4">
-          <div className="relative w-full">
+          <div className="relative w-full text-white">
             <Input
               type="text"
               required
               placeholder="Enter your message..."
+              className="!placeholder-slate-50"
               value={newMessage}
               onChange={(e: any) => setNewMessage(e.target.value)}
             />

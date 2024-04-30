@@ -21,7 +21,12 @@ const EachOrderTrackPage = () => {
     <div className="flex justify-center items-center min-h-[90vh]">
       {" "}
       {data && data?.status === "Processing" ? (
-        <h2> Keep Patience, Your Order is under processing.</h2>
+        <div className="flex justify-center items-center">
+          <div>
+            <SVGIcons.processing className="w-full flex justify-center" />
+            <h2 className="text-[20px] mt-4">Keep Patience, Your Order is under processing.</h2>
+          </div>
+        </div>
       ) : data?.status === "Delivered" ? (
         <div className="flex justify-center items-center">
           <div>

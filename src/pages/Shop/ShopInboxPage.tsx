@@ -21,7 +21,6 @@ const ShopInboxPage = () => {
   const [newMessage, setNewMessage] = useState<any>("");
   const [onlineUsers, setOnlineUsers] = useState<any[]>([]);
   const [activeStatus, setActiveStatus] = useState<any>(false);
-  const [setImages] = useState<any>();
   const [open, setOpen] = useState<any>(false);
   const scrollRef: any = useRef(null);
 
@@ -180,7 +179,6 @@ const ShopInboxPage = () => {
 
   const handleImageUpload = async (e: any) => {
     const file = e.target.files[0];
-    setImages(file);
     imageSendingHandler(file);
   };
 
@@ -209,7 +207,6 @@ const ShopInboxPage = () => {
           },
         })
         .then((res) => {
-          setImages("");
           setMessages([...messages, res.data.message]);
           updateLastMessageForImage();
         });

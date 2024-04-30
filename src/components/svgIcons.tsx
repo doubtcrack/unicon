@@ -31,7 +31,7 @@ export const SVGIcons = {
     >
       <path
         d="M131.199 168.9C138.399 161.7 173.299 185 209.199 220.8C245.099 256.6 268.299 291.6 261.099 298.8"
-        stroke="#121331"
+        stroke="currentColor"
         stroke-width="12"
         stroke-miterlimit="10"
         stroke-linecap="round"
@@ -55,7 +55,7 @@ export const SVGIcons = {
       />
       <path
         d="M129.901 172.4L57.9007 363C55.8007 368.6 61.3007 374.2 66.9007 372L257.601 300"
-        stroke="#121331"
+        stroke="currentColor"
         stroke-width="12"
         stroke-miterlimit="10"
         stroke-linecap="round"
@@ -63,7 +63,7 @@ export const SVGIcons = {
       />
       <path
         d="M261.101 298.8C253.901 306 219.001 282.7 183.101 246.9C147.201 211.1 124.001 176.1 131.201 168.9"
-        stroke="#121331"
+        stroke="currentColor"
         stroke-width="12"
         stroke-miterlimit="10"
         stroke-linecap="round"
@@ -87,7 +87,7 @@ export const SVGIcons = {
       />
       <path
         d="M178.301 70.2L185.601 58"
-        stroke="#121331"
+        stroke="currentColor"
         stroke-width="12"
         stroke-miterlimit="10"
         stroke-linecap="round"
@@ -95,7 +95,7 @@ export const SVGIcons = {
       />
       <path
         d="M321.101 353.7L305.801 363"
-        stroke="#121331"
+        stroke="currentColor"
         stroke-width="12"
         stroke-miterlimit="10"
         stroke-linecap="round"
@@ -119,7 +119,7 @@ export const SVGIcons = {
       />
       <path
         d="M338.199 83.8002L328.199 73.7002"
-        stroke="#121331"
+        stroke="currentColor"
         stroke-width="12"
         stroke-miterlimit="10"
         stroke-linecap="round"
@@ -135,7 +135,7 @@ export const SVGIcons = {
       />
       <path
         d="M84.8008 135.4L95.6008 144.7"
-        stroke="#121331"
+        stroke="currentColor"
         stroke-width="12"
         stroke-miterlimit="10"
         stroke-linecap="round"
@@ -143,7 +143,7 @@ export const SVGIcons = {
       />
       <path
         d="M349.9 212.5L346 198.8"
-        stroke="#121331"
+        stroke="currentColor"
         stroke-width="12"
         stroke-miterlimit="10"
         stroke-linecap="round"
@@ -151,4 +151,21 @@ export const SVGIcons = {
       />
     </svg>
   ),
+  processing: (props: IconProps) =>(
+    <svg width="100" height="100" viewBox="0 0 430 430" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+<path d="M59.22 284.3C59.22 284.3 7.44997 177.88 101.5 88.64C101.57 88.58 116.31 73.8 116.38 73.74" stroke="#08A88A" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M64.5298 73.74H116.37" stroke="#08A88A" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M116.4 125.58V73.74" stroke="#08A88A" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M147.14 59.31C147.14 59.31 253.22 7.70999 342.38 101.15C342.58 101.37 357.3 116.1 357.5 116.31" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M357.7 64.6299V116.47" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M305.86 116.5H357.7" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M370.78 143.81C370.78 143.81 422.46 250.02 328.78 339.22C328.63 339.36 313.78 354.22 313.64 354.37" stroke="#08A88A" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M365.46 354.37H313.62" stroke="#08A88A" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M313.59 302.53V354.37" stroke="#08A88A" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M284.13 370.69C284.13 370.69 177.71 422.46 88.4698 328.4L73.5698 313.53" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M73.5698 365.37V313.53" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M125.41 313.5H73.5698" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+  )
 };

@@ -30,7 +30,7 @@ export function ProductCard({ data, index, isLoading }: any) {
                 src={`${data.images && data.images[0]}`}
                 alt="product image"
                 width={"100%"}
-                className="rounded-md min-h-[200px] max-h-[300px]"
+                className="rounded-md h-[200px]"
               />
             </Link>
           </div>

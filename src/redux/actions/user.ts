@@ -54,13 +54,14 @@ export const loginAccount =
       dispatch({
         type: `${access}Request`,
       });
-      await axios.post(
+      const {data}:any = await axios.post(
         `${server}/${path}`,
         { email, password },
         { withCredentials: true }
-      );
+      );     
       dispatch({
         type: `${access}Success`,
+        payload: data?.user,
       });
       const redirectPath = sessionStorage.getItem("redirectPath");
       navigate(redirectPath || afterpath);

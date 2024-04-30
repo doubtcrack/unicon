@@ -20,7 +20,6 @@ const InboxPage = () => {
   const [newMessage, setNewMessage] = useState<string>("");
   const [userData, setUserData] = useState<any>(null);
   const [onlineUsers, setOnlineUsers] = useState<any[]>([]);
-  const [setImages] = useState<any>();
   const [activeStatus, setActiveStatus] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -168,7 +167,6 @@ const InboxPage = () => {
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setImages(file);
       imageSendingHandler(file);
     }
   };
@@ -200,7 +198,6 @@ const InboxPage = () => {
           },
         }
       );
-      setImages(undefined);
       setMessages([...messages, res.data.message]);
       updateLastMessageForImage();
     } catch (error) {
